@@ -1,8 +1,8 @@
 //
 //  Persistence.swift
-//  bikecheck
+//  BikeCheck
 //
-//  Created by clutchcoder on 1/2/24.
+//  Created by clutchcoder on 12/29/23.
 //
 
 import CoreData
@@ -14,8 +14,10 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            let newTokenInfo = TokenInfo(context: viewContext)
+            newTokenInfo.accessToken = "testAccessToken"
+            newTokenInfo.refreshToken = "testRefreshToken"
+            // Set other properties of newTokenInfo...
         }
         do {
             try viewContext.save()
@@ -41,16 +43,18 @@ struct PersistenceController {
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 
                 /*
-                 Typical reasons for an error here include:
+                Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
                  * The persistent store is not accessible, due to permissions or data protection when the device is locked.
                  * The device is out of space.
                  * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
+                Check the error message to determine what the actual problem was.
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+         // Set the merge policy
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }
 }

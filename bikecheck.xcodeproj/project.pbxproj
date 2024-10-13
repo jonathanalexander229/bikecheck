@@ -7,15 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A31ED1672B6AFBF40005E257 /* BikesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31ED1662B6AFBF40005E257 /* BikesViewModel.swift */; };
+		A338D4542BE1695900E18ED8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338D4532BE1695900E18ED8 /* HomeView.swift */; };
+		A338D4562BE172E500E18ED8 /* ServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338D4552BE172E500E18ED8 /* ServiceView.swift */; };
+		A338D4582BE1823000E18ED8 /* ActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338D4572BE1823000E18ED8 /* ActivitiesView.swift */; };
 		A365B0012B44D34900FF712E /* bikecheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0002B44D34900FF712E /* bikecheckApp.swift */; };
-		A365B0032B44D34900FF712E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0022B44D34900FF712E /* ContentView.swift */; };
-		A365B0052B44D34A00FF712E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A365B0042B44D34A00FF712E /* Assets.xcassets */; };
+		A365B0032B44D34900FF712E /* BikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0022B44D34900FF712E /* BikesView.swift */; };
 		A365B0082B44D34A00FF712E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A365B0072B44D34A00FF712E /* Preview Assets.xcassets */; };
 		A365B00A2B44D34A00FF712E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0092B44D34A00FF712E /* Persistence.swift */; };
 		A365B00D2B44D34A00FF712E /* bikecheck.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A365B00B2B44D34A00FF712E /* bikecheck.xcdatamodeld */; };
 		A365B0172B44D34A00FF712E /* bikecheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0162B44D34A00FF712E /* bikecheckTests.swift */; };
 		A365B0212B44D34A00FF712E /* bikecheckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0202B44D34A00FF712E /* bikecheckUITests.swift */; };
 		A365B0232B44D34A00FF712E /* bikecheckUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0222B44D34A00FF712E /* bikecheckUITestsLaunchTests.swift */; };
+		A365B0312B44D37300FF712E /* TokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0302B44D37300FF712E /* TokenInfo.swift */; };
+		A365B0332B44D39900FF712E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0322B44D39900FF712E /* LoginView.swift */; };
+		A365B0372B44D3DD00FF712E /* StravaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0362B44D3DD00FF712E /* StravaHelper.swift */; };
+		A365B03A2B44D41000FF712E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A365B0392B44D41000FF712E /* Alamofire */; };
+		A39ADD9E2B54A8CD0038AC55 /* ServiceInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39ADD9D2B54A8CD0038AC55 /* ServiceInterval.swift */; };
+		A3C2EC792C237B7500BA2BC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A365B0042B44D34A00FF712E /* Assets.xcassets */; };
+		A3E40C952B8F033000536F51 /* AddServiceIntervalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E40C942B8F033000536F51 /* AddServiceIntervalView.swift */; };
+		A3E40C9B2B93F82700536F51 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E40C9A2B93F82700536F51 /* NotificationManager.swift */; };
+		A3E40C9D2B96A9A900536F51 /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E40C9C2B96A9A900536F51 /* NotificationDelegate.swift */; };
+		A3E742952B46FDEE00C5191F /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E742922B46FDEE00C5191F /* Athlete.swift */; };
+		A3E742962B46FDEE00C5191F /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E742932B46FDEE00C5191F /* Activity.swift */; };
+		A3E742972B46FDEE00C5191F /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E742942B46FDEE00C5191F /* Bike.swift */; };
+		A3E742992B4A774600C5191F /* BikeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E742982B4A774600C5191F /* BikeDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,9 +52,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A31ED1662B6AFBF40005E257 /* BikesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikesViewModel.swift; sourceTree = "<group>"; };
+		A338D4532BE1695900E18ED8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A338D4552BE172E500E18ED8 /* ServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceView.swift; sourceTree = "<group>"; };
+		A338D4572BE1823000E18ED8 /* ActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesView.swift; sourceTree = "<group>"; };
 		A365AFFD2B44D34900FF712E /* bikecheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bikecheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A365B0002B44D34900FF712E /* bikecheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckApp.swift; sourceTree = "<group>"; };
-		A365B0022B44D34900FF712E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A365B0022B44D34900FF712E /* BikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikesView.swift; sourceTree = "<group>"; };
 		A365B0042B44D34A00FF712E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A365B0072B44D34A00FF712E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A365B0092B44D34A00FF712E /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -48,6 +68,18 @@
 		A365B01C2B44D34A00FF712E /* bikecheckUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bikecheckUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A365B0202B44D34A00FF712E /* bikecheckUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckUITests.swift; sourceTree = "<group>"; };
 		A365B0222B44D34A00FF712E /* bikecheckUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A365B0302B44D37300FF712E /* TokenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
+		A365B0322B44D39900FF712E /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A365B0362B44D3DD00FF712E /* StravaHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StravaHelper.swift; sourceTree = "<group>"; };
+		A365B03B2B44D93700FF712E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A39ADD9D2B54A8CD0038AC55 /* ServiceInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInterval.swift; sourceTree = "<group>"; };
+		A3E40C942B8F033000536F51 /* AddServiceIntervalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceIntervalView.swift; sourceTree = "<group>"; };
+		A3E40C9A2B93F82700536F51 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		A3E40C9C2B96A9A900536F51 /* NotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
+		A3E742922B46FDEE00C5191F /* Athlete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; usesTabs = 0; };
+		A3E742932B46FDEE00C5191F /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		A3E742942B46FDEE00C5191F /* Bike.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
+		A3E742982B4A774600C5191F /* BikeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A365B03A2B44D41000FF712E /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,12 +131,24 @@
 		A365AFFF2B44D34900FF712E /* bikecheck */ = {
 			isa = PBXGroup;
 			children = (
+				A365B03B2B44D93700FF712E /* Info.plist */,
+				A365B0362B44D3DD00FF712E /* StravaHelper.swift */,
+				A365B02F2B44D36100FF712E /* Models */,
 				A365B0002B44D34900FF712E /* bikecheckApp.swift */,
-				A365B0022B44D34900FF712E /* ContentView.swift */,
+				A365B0022B44D34900FF712E /* BikesView.swift */,
+				A338D4572BE1823000E18ED8 /* ActivitiesView.swift */,
+				A338D4552BE172E500E18ED8 /* ServiceView.swift */,
+				A338D4532BE1695900E18ED8 /* HomeView.swift */,
+				A31ED1662B6AFBF40005E257 /* BikesViewModel.swift */,
+				A3E742982B4A774600C5191F /* BikeDetailView.swift */,
+				A365B0322B44D39900FF712E /* LoginView.swift */,
 				A365B0042B44D34A00FF712E /* Assets.xcassets */,
 				A365B0092B44D34A00FF712E /* Persistence.swift */,
 				A365B00B2B44D34A00FF712E /* bikecheck.xcdatamodeld */,
 				A365B0062B44D34A00FF712E /* Preview Content */,
+				A3E40C9C2B96A9A900536F51 /* NotificationDelegate.swift */,
+				A3E40C942B8F033000536F51 /* AddServiceIntervalView.swift */,
+				A3E40C9A2B93F82700536F51 /* NotificationManager.swift */,
 			);
 			path = bikecheck;
 			sourceTree = "<group>";
@@ -133,6 +178,18 @@
 			path = bikecheckUITests;
 			sourceTree = "<group>";
 		};
+		A365B02F2B44D36100FF712E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A3E742932B46FDEE00C5191F /* Activity.swift */,
+				A3E742922B46FDEE00C5191F /* Athlete.swift */,
+				A3E742942B46FDEE00C5191F /* Bike.swift */,
+				A365B0302B44D37300FF712E /* TokenInfo.swift */,
+				A39ADD9D2B54A8CD0038AC55 /* ServiceInterval.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,6 +206,9 @@
 			dependencies = (
 			);
 			name = bikecheck;
+			packageProductDependencies = (
+				A365B0392B44D41000FF712E /* Alamofire */,
+			);
 			productName = bikecheck;
 			productReference = A365AFFD2B44D34900FF712E /* bikecheck.app */;
 			productType = "com.apple.product-type.application";
@@ -221,6 +281,9 @@
 				Base,
 			);
 			mainGroup = A365AFF42B44D34900FF712E;
+			packageReferences = (
+				A365B0382B44D41000FF712E /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = A365AFFE2B44D34900FF712E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -237,8 +300,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3C2EC792C237B7500BA2BC8 /* Assets.xcassets in Resources */,
 				A365B0082B44D34A00FF712E /* Preview Assets.xcassets in Resources */,
-				A365B0052B44D34A00FF712E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,10 +326,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A365B0372B44D3DD00FF712E /* StravaHelper.swift in Sources */,
+				A338D4582BE1823000E18ED8 /* ActivitiesView.swift in Sources */,
+				A365B0332B44D39900FF712E /* LoginView.swift in Sources */,
+				A39ADD9E2B54A8CD0038AC55 /* ServiceInterval.swift in Sources */,
+				A3E40C9D2B96A9A900536F51 /* NotificationDelegate.swift in Sources */,
+				A3E40C9B2B93F82700536F51 /* NotificationManager.swift in Sources */,
+				A3E742992B4A774600C5191F /* BikeDetailView.swift in Sources */,
+				A3E742972B46FDEE00C5191F /* Bike.swift in Sources */,
 				A365B00A2B44D34A00FF712E /* Persistence.swift in Sources */,
-				A365B0032B44D34900FF712E /* ContentView.swift in Sources */,
+				A3E40C952B8F033000536F51 /* AddServiceIntervalView.swift in Sources */,
+				A365B0032B44D34900FF712E /* BikesView.swift in Sources */,
 				A365B0012B44D34900FF712E /* bikecheckApp.swift in Sources */,
+				A338D4542BE1695900E18ED8 /* HomeView.swift in Sources */,
+				A365B0312B44D37300FF712E /* TokenInfo.swift in Sources */,
+				A338D4562BE172E500E18ED8 /* ServiceView.swift in Sources */,
+				A3E742962B46FDEE00C5191F /* Activity.swift in Sources */,
 				A365B00D2B44D34A00FF712E /* bikecheck.xcdatamodeld in Sources */,
+				A3E742952B46FDEE00C5191F /* Athlete.swift in Sources */,
+				A31ED1672B6AFBF40005E257 /* BikesViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +494,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -433,11 +512,14 @@
 				DEVELOPMENT_TEAM = C55UWFYY9X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = bikecheck/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BikeCheck;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -445,9 +527,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ride.bikecheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -462,21 +548,29 @@
 				DEVELOPMENT_TEAM = C55UWFYY9X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = bikecheck/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BikeCheck;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ride.bikecheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -596,6 +690,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A365B0382B44D41000FF712E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A365B0392B44D41000FF712E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A365B0382B44D41000FF712E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		A365B00B2B44D34A00FF712E /* bikecheck.xcdatamodeld */ = {
