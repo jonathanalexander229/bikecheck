@@ -10,7 +10,8 @@ import CoreData
 struct AddServiceIntervalView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentationMode
-    @State private var showingConfirmationDialog = false
+    @State private var deleteConfirmationDialog = false
+    @State private var resetConfirmationDialog = false
     @State var serviceIntervalID: UUID?
 
 
@@ -26,6 +27,7 @@ struct AddServiceIntervalView: View {
     @State private var isEditing = false
     @State private var selectedBike: Bike?
     @State var serviceInterval: ServiceInterval?
+    @State private var timeUntilServiceText: String = ""
 
     var body: some View {
         NavigationView {
@@ -52,11 +54,12 @@ struct AddServiceIntervalView: View {
                     TextField("Interval Time (hrs)", text: $intervalTime).keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
                 }
-                if let serviceInterval = serviceInterval {
+                if serviceInterval != nil {
                     HStack {
                         Text("Time until service (hrs)")
                         Spacer()
-                        Text(String(format: "%.2f", calculateTimeUntilService(serviceInterval: serviceInterval)))
+                            
+                        Text(timeUntilServiceText)
                             .multilineTextAlignment(.trailing)
                     }
                 }
@@ -65,38 +68,67 @@ struct AddServiceIntervalView: View {
                 }
                 Spacer()
                 if let serviceInterval = serviceInterval {
-                        // Button(action: {
-                        //     // Reset the startTime to 0
-                        //     serviceInterval.startTime = selectedBike!.rideTime(context: managedObjectContext)
-                        //     // Add code to save the context after resetting if necessary
-                        // }) {
-                        //     Text("Reset Interval").foregroundColor(.blue)
-                        // }
-                        // .frame(maxWidth: .infinity, alignment: .center)
-                        Button(action: {
-                            showingConfirmationDialog = true
-                        }) {
-                            Text("Delete")
-                                .foregroundColor(.red)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .alert(isPresented: $showingConfirmationDialog) {
-                            Alert(
-                                title: Text("Confirm Removal"),
-                                message: Text("Are you sure you want to remove this service interval?"),
-                                primaryButton: .destructive(Text("Remove")) {
-                                    self.managedObjectContext.delete(serviceInterval)
-                                    
-                                    do {
-                                        try self.managedObjectContext.save()
-                                    } catch {
-                                        // Handle the error appropriately
-                                        print("Failed to delete service interval: \(error)")
-                                    }
-                                },
-                                secondaryButton: .cancel()
-                            )
-                        }
+                    Button(action: {
+                        resetConfirmationDialog = true
+                        // Reset the startTime to 0
+                      
+                        // Add code to save the context after resetting if necessary
+                        // Save changes to update Core Data
+//                        do {
+//                            try self.managedObjectContext.save()
+//                        } catch {
+//                            // Handle the error appropriately
+//                            print("Error resetting service interval: \(error)")
+//                        }
+                    }) {
+                        Text("Reset Interval").foregroundColor(.blue)
+                    }
+                    //.frame(maxWidth: .infinity, alignment: .center)
+                    .alert(isPresented: $resetConfirmationDialog) {
+                        Alert(
+                            title: Text("Confirm Reset Interval"),
+                            message: Text("Are you sure you want to reset this service interval?"),
+                            primaryButton: .default(Text("Reset")) {
+                                self.startTime = selectedBike!.rideTime(context: managedObjectContext)
+                                timeUntilServiceText = String(format: "%.2f", serviceInterval.intervalTime)
+                                
+                                
+//                                self.managedObjectContext.delete(serviceInterval)
+//                                
+//                                do {
+//                                    try self.managedObjectContext.save()
+//                                } catch {
+//                                    // Handle the error appropriately
+//                                    print("Failed to reset service interval: \(error)")
+//                                }
+                            },
+                            secondaryButton: .cancel()
+                        )
+                    }
+                    Button(action: {
+                        deleteConfirmationDialog = true
+                    }) {
+                        Text("Delete")
+                            .foregroundColor(.red)
+                    }
+                    //.frame(maxWidth: .infinity, alignment: .center)
+                    .alert(isPresented: $deleteConfirmationDialog) {
+                        Alert(
+                            title: Text("Confirm Removal"),
+                            message: Text("Are you sure you want to remove this service interval?"),
+                            primaryButton: .destructive(Text("Remove")) {
+                                self.managedObjectContext.delete(serviceInterval)
+                                
+                                do {
+                                    try self.managedObjectContext.save()
+                                } catch {
+                                    // Handle the error appropriately
+                                    print("Failed to delete service interval: \(error)")
+                                }
+                            },
+                            secondaryButton: .cancel()
+                        )
+                    }
                 }
             }.onAppear() {
                 if let serviceInterval = serviceInterval {
@@ -106,13 +138,14 @@ struct AddServiceIntervalView: View {
                     self.intervalTime = String(serviceInterval.intervalTime)
                     self.notify = serviceInterval.notify
                     self.selectedBike = serviceInterval.bike
+                    timeUntilServiceText = String(format: "%.2f", calculateTimeUntilService(serviceInterval: serviceInterval))
                 }
             }
             .onDisappear() {
                 // Assuming you have a method to check if there are changes
-                if hasChanges() {
+               // if hasChanges() {
                     saveChanges()
-                }
+               // }
                 if let serviceInterval = serviceInterval {
                     if serviceInterval.notify {
                         NotificationManager().scheduleBackgroundTask()
