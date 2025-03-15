@@ -70,7 +70,7 @@ struct ActivitiesView: View {
                     }
                 }
             }
-            .navigationTitle("Activites")
+            .navigationTitle("Activities")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading: profileImage)
         }

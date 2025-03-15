@@ -47,11 +47,7 @@ class StravaHelper: ObservableObject {
     }
 
     func authenticate(completion: @escaping (Bool) -> Void) {
-        let commonUrl = "oauth/mobile/authorize?client_id=\(clientId)&redirect_uri=\(urlScheme)%3A%2F%2F\(callbackUrl)&response_type=\(responseType)&approval_prompt=auto&scope=\(scope)"
-        let appOAuthUrlStravaScheme = URL(string: "strava://\(commonUrl)")!
-        //let webOAuthUrl = URL(string: "https://www.strava.com/\(commonUrl)")!
-        
-        let weburl = URL(string: "https://www.strava.com/oauth/mobile/authorize?client_id=\(clientId)&redirect_uri=\(urlScheme)%3A%2F%2F\(callbackUrl)&response_type=\(responseType)&approval_prompt=auto&scope=\(scope)")!
+        let appOAuthUrlStravaScheme = URL(string: "https://www.strava.com/oauth/mobile/authorize?client_id=\(clientId)&redirect_uri=\(urlScheme)%3A%2F%2F\(callbackUrl)&response_type=\(responseType)&approval_prompt=auto&scope=\(scope)")!
         
         let callback: ASWebAuthenticationSession.CompletionHandler = { url, error in
             // Handle the authentication result
@@ -75,6 +71,7 @@ class StravaHelper: ObservableObject {
                         self.isSignedIn = success
                         completion(success) // Indicate success to the completion handler
                     }
+
                 }
             } else {
                 DispatchQueue.main.async {
@@ -87,7 +84,7 @@ class StravaHelper: ObservableObject {
             UIApplication.shared.open(appOAuthUrlStravaScheme, options: [:])
         } else {
             let contextProvider = AuthenticationSession()
-            authSession = ASWebAuthenticationSession(url: weburl, callbackURLScheme: "bikecheck", completionHandler: callback)
+            authSession = ASWebAuthenticationSession(url: appOAuthUrlStravaScheme, callbackURLScheme: "bikecheck", completionHandler: callback)
             authSession?.presentationContextProvider = contextProvider
             authSession?.start()
         }
@@ -179,6 +176,12 @@ class StravaHelper: ObservableObject {
             
             }
             
+            //UI testing
+            if self.tokenInfo?.expiresAt == 9999999999 {
+                completion(.success(())) // Return immediately if expiresAt is 9999999
+                return
+            }
+            
             let decoder = JSONDecoder()
             decoder.userInfo[CodingUserInfoKey.managedObjectContext] = self.managedObjectContext
 
@@ -209,7 +212,7 @@ class StravaHelper: ObservableObject {
        // fetchRequest.returnsObjectsAsFaults = false
         do {
             let bikes = try self.managedObjectContext.fetch(fetchRequest)
-           // print("Fetched \(bikes.count) bikes")
+            print("fetched bikes", bikes)
             return bikes
         } catch {
             print("Failed to fetch bikes: \(error)")
@@ -260,6 +263,13 @@ class StravaHelper: ObservableObject {
                 return
             }
             
+            //UI testing
+            if self.tokenInfo?.expiresAt == 9999999999 {
+                print("Demo Mode")
+                completion(.success(())) // Return immediately if expiresAt is 9999999
+                return
+            }
+            
             let headers: HTTPHeaders = [
                 "Authorization": "Bearer \(accessToken)"
             ]
@@ -287,6 +297,7 @@ class StravaHelper: ObservableObject {
 //                            }
 //                        }
                         self.activities = activities
+                        print("activities", activities)
                         do {
                             // Save the changes to the managed object context
                             try self.managedObjectContext.save()
@@ -300,6 +311,102 @@ class StravaHelper: ObservableObject {
                         completion(.failure(error))
                     }
                 })
+        }
+    }
+    
+    func insertTestData() {
+        let viewContext = managedObjectContext
+        
+        // for _ in 0..<10 {
+        let newTokenInfo = TokenInfo(context: viewContext)
+        let newAthlete = Athlete(context: viewContext)
+        let newBike1 = Bike(context: viewContext)
+        let newBike2 = Bike(context: viewContext)
+        let newBike3 = Bike(context: viewContext)
+        let newBike4 = Bike(context: viewContext)
+        let newActivity1 = Activity(context: viewContext)
+        let newServInt1 = ServiceInterval(context: viewContext)
+        let newServInt2 = ServiceInterval(context: viewContext)
+        let newServInt3 = ServiceInterval(context: viewContext)
+        
+        let newActivity2 = Activity(context: viewContext)
+        let newActivity3 = Activity(context: viewContext)
+        
+        newTokenInfo.accessToken = "953ff94ea69feea5cc5521e2d44abeea242dd3ae"
+        newTokenInfo.refreshToken = "447b364e34d996523d72370f509973f51934f5c5"
+        newTokenInfo.expiresAt = 9999999999
+        newAthlete.firstname = "testuser"
+        newAthlete.id = 26493868
+          
+        newBike1.id = "b1"
+        newBike1.name = "Kenevo"
+        newBike1.distance = 99999
+        newBike2.id = "b2"
+        newBike2.name = "StumpJumper"
+        newBike2.distance = 99999
+        newBike3.id = "b3"
+        newBike3.name = "Checkpoint"
+        newBike3.distance = 99999
+        newBike4.id = "b4"
+        newBike4.name = "TimberJACKED"
+        newBike4.distance = 99999
+        
+        newActivity1.id = 1111111
+        newActivity1.gearId = "b1"
+        newActivity1.averageSpeed = 12.05
+        newActivity1.movingTime = 645
+        newActivity1.name = "Test Activity 1"
+        newActivity1.startDate = Date().advanced(by: -5)
+        newActivity1.type = "Ride"
+        
+        newActivity2.id = 2222222
+        newActivity2.gearId = "b1"
+        newActivity2.averageSpeed = 15.06
+        newActivity2.movingTime = 1585
+        newActivity2.name = "Test Activity 2"
+        newActivity2.startDate = Date().advanced(by: -3)
+        newActivity2.type = "Ride"
+        
+        newActivity3.id = 3333333
+        newActivity3.gearId = "b1"
+        newActivity3.averageSpeed = 9.03
+        newActivity3.movingTime = 2765
+        newActivity3.name = "Test Activity 3"
+        newActivity3.startDate = Date().advanced(by: -6)
+        newActivity3.type = "Ride"
+        
+        newServInt2.intervalTime = 5
+        newServInt2.startTime = 0
+        newServInt2.bike = newBike1
+        newServInt2.part = "chain"
+        newServInt2.notify = true
+        
+        newServInt3.intervalTime = 10
+        newServInt3.startTime = 0
+        newServInt3.bike = newBike1
+        newServInt3.part = "Fork Lowers"
+        newServInt3.notify = true
+        
+        newServInt1.intervalTime = 15
+        newServInt1.startTime = 0
+        newServInt1.bike = newBike1
+        newServInt1.part = "Shock"
+        newServInt1.notify = true
+        
+        newAthlete.bikes = [newBike1, newBike2, newBike3, newBike4]
+        
+        newTokenInfo.athlete = newAthlete
+        // Set other properties of newTokenInfo...
+        // }
+        
+        do {
+            try viewContext.save()
+            DispatchQueue.main.async {
+                self.isSignedIn = true
+            }
+            
+        } catch {
+            fatalError("Unresolved error \(error), \(error)")
         }
     }
 

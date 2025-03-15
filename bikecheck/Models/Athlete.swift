@@ -11,7 +11,7 @@ import CoreData
 public class Athlete: NSManagedObject, Codable {
     @NSManaged public var id: Int64
     @NSManaged public var firstname: String
-    @NSManaged public var profile: String
+    @NSManaged public var profile: String!
     @NSManaged public var bikes: Set<Bike>
 
     enum CodingKeys: String, CodingKey {
