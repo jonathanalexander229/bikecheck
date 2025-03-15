@@ -45,6 +45,16 @@ struct LoginView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
+                    
+                    Button(action: {
+                        stravaAuth.insertTestData()
+                       }) {
+                           Text("Insert Test Data")
+                               .frame(width: 280, height: 60)
+                               .background(Color.green)
+                               .foregroundColor(.white)
+                               .cornerRadius(10)
+                       }
                 }
             }
         }

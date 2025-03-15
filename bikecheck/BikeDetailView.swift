@@ -56,6 +56,13 @@ struct BikeDetailView: View {
                         )
                     }
                     Spacer()
+                   
+                }
+                Button(action: {
+                    createDefaultServiceIntervals(bike: bike)
+                }) {
+                    Text("Create Default Service Intervals")
+                        .foregroundColor(.blue)
                 }
             }
 
@@ -66,7 +73,44 @@ struct BikeDetailView: View {
 //                    Text("Notify: \(serviceInterval.notify ? "Yes" : "No")")
 //            }
         }
+
+       
     }
+    
+    func createDefaultServiceIntervals(bike: Bike) {
+        let newServInt1 = ServiceInterval(context: viewContext)
+        let newServInt2 = ServiceInterval(context: viewContext)
+        let newServInt3 = ServiceInterval(context: viewContext)
+        
+        newServInt2.intervalTime = 5
+        newServInt2.startTime = 0
+        newServInt2.bike = bike
+        newServInt2.part = "chain"
+        newServInt2.notify = true
+        
+        newServInt3.intervalTime = 10
+        newServInt3.startTime = 0
+        newServInt3.bike = bike
+        newServInt3.part = "Fork Lowers"
+        newServInt3.notify = true
+        
+        newServInt1.intervalTime = 15
+        newServInt1.startTime = 0
+        newServInt1.bike = bike
+        newServInt1.part = "Shock"
+        newServInt1.notify = true
+        
+        do {
+            try viewContext.save()
+//            DispatchQueue.main.async {
+//            }
+            
+        } catch {
+            fatalError("Unresolved error \(error), \(error)")
+        }
+    
+    }
+
 }
 
 //#Preview {

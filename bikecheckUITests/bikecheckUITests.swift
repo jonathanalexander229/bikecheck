@@ -6,9 +6,12 @@
 //
 
 import XCTest
+@testable import bikecheck
 
 final class bikecheckUITests: XCTestCase {
-
+    
+    var app: XCUIApplication!
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -22,20 +25,38 @@ final class bikecheckUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testLoggedIn() throws {
         // UI tests must launch the application that they test.
-        let app = XCUIApplication()
+        app = XCUIApplication()
+        app.launchEnvironment["USE_IN_MEMORY_STORE"] = "true"
+        app.launchEnvironment["LOGGED_IN"] = "true"
         app.launch()
-
+        
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Service Intervals"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Bikes"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Activities"].waitForExistence(timeout: 5))
+        //sleep(5)
+        app.tabBars["Tab Bar"].buttons["Service Intervals"].tap()
+        XCTAssertTrue(app.navigationBars["Service Intervals"].waitForExistence(timeout: 5))
+        //sleep(5)
+        app.tabBars["Tab Bar"].buttons["Bikes"].tap()
+        XCTAssertTrue(app.navigationBars["Bikes"].waitForExistence(timeout: 5))
+        //sleep(5)
+        app.tabBars["Tab Bar"].buttons["Activities"].tap()
+        XCTAssertTrue(app.navigationBars["Activities"].waitForExistence(timeout: 5))
+        //sleep(5)
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
+    
+    func testLoggedOut() throws {
+        // UI tests must launch the application that they test.
+        app = XCUIApplication()
+        app.launchEnvironment["USE_IN_MEMORY_STORE"] = "true"
+        app.launchEnvironment["LOGGED_IN"] = "false"
+        app.launch()
+                
+        XCTAssertTrue(app.buttons["Sign in with Strava"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Insert Test Data"].waitForExistence(timeout: 5))
 
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
     }
 }

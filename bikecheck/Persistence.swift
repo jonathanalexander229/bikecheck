@@ -8,7 +8,13 @@
 import CoreData
 
 struct PersistenceController {
-    static let shared = PersistenceController()
+    static let shared: PersistenceController = {
+            // Use an environment variable to determine if the store should be in-memory
+            guard let useInMemoryStore = Bool(ProcessInfo.processInfo.environment["USE_IN_MEMORY_STORE"] ?? "false") else {
+                return PersistenceController(inMemory: false)
+            }
+            return PersistenceController(inMemory: useInMemoryStore)
+        }()
 
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
@@ -36,6 +42,7 @@ struct PersistenceController {
         container = NSPersistentContainer(name: "bikecheck")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+           
         }
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -56,5 +63,33 @@ struct PersistenceController {
         container.viewContext.automaticallyMergesChangesFromParent = true
          // Set the merge policy
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        if inMemory {
+            if (Bool(ProcessInfo.processInfo.environment["LOGGED_IN"] ?? "false")!){
+                insertTestData()
+            }
+        }
+    }
+    
+    func insertTestData() {
+        let viewContext = container.viewContext
+        
+        // for _ in 0..<10 {
+        let newTokenInfo = TokenInfo(context: viewContext)
+        newTokenInfo.accessToken = "953ff94ea69feea5cc5521e2d44abeea242dd3ae"
+        newTokenInfo.refreshToken = "447b364e34d996523d72370f509973f51934f5c5"
+        newTokenInfo.expiresAt = 9999999999
+        let newAthlete = Athlete(context: viewContext)
+        newAthlete.firstname = "Jonathan"
+        newAthlete.id = 26493868
+        newTokenInfo.athlete = newAthlete
+        // Set other properties of newTokenInfo...
+        // }
+        
+        do {
+            try viewContext.save()
+        } catch {
+            fatalError("Unresolved error \(error), \(error)")
+        }
     }
 }
