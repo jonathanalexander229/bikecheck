@@ -57,7 +57,9 @@ struct ServiceView: View {
                 leading: profileImage,
                 trailing: addButton
             )
-            .sheet(isPresented: $showingServiceIntervalView) {
+            .sheet(isPresented: $showingServiceIntervalView, onDismiss: {
+                viewModel.loadServiceIntervals()
+            }) {
                 AddServiceIntervalView()
             }
             .onAppear {
