@@ -1,33 +1,36 @@
-//
-//  StravaHelper.swift
-//  BikeCheck
-//
-
 import Foundation
-import AuthenticationServices
-import Alamofire
 import CoreData
+import Alamofire
+import AuthenticationServices
+import Combine
+import UIKit
 
-class StravaHelper: ObservableObject {
-    // MARK: - Published Properties
-    @Published var isSignedIn = false
+class StravaService: ObservableObject {
+    // Use static let + closure pattern to ensure that shared is initialized exactly once
+    // and the initialization happens when the class is first accessed
+    static let shared: StravaService = {
+        let instance = StravaService()
+        // Initialization is performed in the init method
+        return instance
+    }()
+    
+    @Published var isSignedIn: Bool?
     @Published var tokenInfo: TokenInfo?
     @Published var athlete: Athlete?
     @Published var bikes: [Bike]?
     @Published var activities: [Activity]?
+    @Published var profileImage: UIImage?
     
-    // MARK: - Private Properties
-    private var authSession: ASWebAuthenticationSession?
     private var managedObjectContext: NSManagedObjectContext
+    private var authSession: ASWebAuthenticationSession?
     
-    private let urlScheme = "bikecheck"
-    private let callbackUrl = "bikecheck-callback"
-    private let clientSecret = "539be89a897a8f1096d36bb98182fdc9f08d211a"
-    private let clientId = "54032"
+    private let urlScheme: String = "bikecheck"
+    private let callbackUrl: String = "bikecheck-callback"
+    private let clientSecret: String = "539be89a897a8f1096d36bb98182fdc9f08d211a"
+    private let clientId: String = "54032"
     private let responseType = "code"
     private let scope = "read,profile:read_all,activity:read_all"
     
-    // MARK: - Constants
     private enum ApiEndpoints {
         static let token = "https://www.strava.com/oauth/token"
         static let athlete = "https://www.strava.com/api/v3/athlete"
@@ -43,26 +46,47 @@ class StravaHelper: ObservableObject {
         static let saveFailed = "Failed to save managed object context"
     }
     
-    // MARK: - Initialization
-    init(context: NSManagedObjectContext) {
+    init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
         self.managedObjectContext = context
-        loadSavedTokenInfo()
+        checkAuthentication()
     }
     
-    private func loadSavedTokenInfo() {
+    private func checkAuthentication() {
         let fetchRequest: NSFetchRequest<TokenInfo> = TokenInfo.fetchRequest() as! NSFetchRequest<TokenInfo>
         
         do {
-            let tokenInfoResults = try managedObjectContext.fetch(fetchRequest)
-            self.tokenInfo = tokenInfoResults.first
-            self.isSignedIn = !tokenInfoResults.isEmpty
+            let tokenInfo = try managedObjectContext.fetch(fetchRequest)
+            self.tokenInfo = tokenInfo.first
+            self.isSignedIn = !tokenInfo.isEmpty
+            
+            if !tokenInfo.isEmpty {
+                self.fetchAthleteData()
+            }
         } catch {
-            print("\(ErrorMessages.fetchTokenFailed): \(error)")
+            print("Failed to fetch TokenInfo: \(error)")
             self.isSignedIn = false
         }
     }
     
-    // MARK: - Authentication
+    func fetchAthleteData() {
+        self.getAthlete { _ in }
+        self.fetchActivities { _ in }
+        
+        if let urlString = self.athlete?.profile, let url = URL(string: urlString) {
+            self.loadProfileImage(from: url)
+        }
+    }
+    
+    private func loadProfileImage(from url: URL) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data, let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self.profileImage = image
+                }
+            }
+        }.resume()
+    }
+    
     func authenticate(completion: @escaping (Bool) -> Void) {
         guard let authUrl = URL(string: "\(ApiEndpoints.oauthMobile)?client_id=\(clientId)&redirect_uri=\(urlScheme)%3A%2F%2F\(callbackUrl)&response_type=\(responseType)&approval_prompt=auto&scope=\(scope)") else {
             completion(false)
@@ -87,6 +111,9 @@ class StravaHelper: ObservableObject {
             self.requestStravaTokens(with: authorizationCode) { success in
                 DispatchQueue.main.async {
                     self.isSignedIn = success
+                    if success {
+                        self.fetchAthleteData()
+                    }
                     completion(success)
                 }
             }
@@ -124,7 +151,6 @@ class StravaHelper: ObservableObject {
         return urlComponents.queryItems?.first(where: { $0.name == "code" })?.value
     }
     
-    // MARK: - Token Management
     func requestStravaTokens(with code: String, completion: @escaping (Bool) -> Void) {
         let parameters: [String: Any] = [
             "client_id": clientId, 
@@ -146,7 +172,6 @@ class StravaHelper: ObservableObject {
             do {
                 self.tokenInfo = try decoder.decode(TokenInfo.self, from: data)
                 try self.managedObjectContext.save()
-                self.getAthlete { _ in }
                 completion(true)
             } catch {
                 print("Decoding or saving error: \(error)")
@@ -156,29 +181,25 @@ class StravaHelper: ObservableObject {
     }
     
     func getAccessToken(completion: @escaping (String?) -> Void) {
-        // If token is valid, return it immediately
-        if let expiresAt = self.tokenInfo?.expiresAt,
-           expiresAt > Int(Date().timeIntervalSince1970) {
+        if (self.tokenInfo?.expiresAt ?? 0) > Int(Date().timeIntervalSince1970) {
             completion(self.tokenInfo?.accessToken)
-            return
-        }
-        
-        // Token expired, refresh it
-        self.refreshAccessToken { newAccessToken in
-            completion(newAccessToken)
+        } else {
+            self.refreshAccessToken { newAccessToken in
+                completion(newAccessToken)
+            }
         }
     }
     
-    func refreshAccessToken(completion: @escaping (String?) -> Void) {
+    private func refreshAccessToken(completion: @escaping (String?) -> Void) {
         guard let refreshToken = self.tokenInfo?.refreshToken else {
             completion(nil)
             return
         }
         
         let parameters: [String: Any] = [
-            "client_id": clientId,
-            "client_secret": clientSecret,
-            "grant_type": "refresh_token",
+            "client_id": clientId, 
+            "client_secret": clientSecret, 
+            "grant_type": "refresh_token", 
             "refresh_token": refreshToken
         ]
         
@@ -206,10 +227,39 @@ class StravaHelper: ObservableObject {
         }
     }
     
-    // MARK: - API Calls
     func getAthlete(completion: @escaping (Result<Void, Error>) -> Void) {
         // Skip API calls in demo mode
         if isDemoMode() {
+            print("Demo Mode - Using existing athlete")
+            // In demo mode, check if we have a valid athlete already
+            if let athlete = self.athlete {
+                print("Using existing athlete in demo mode: \(athlete.firstname), profile URL: \(athlete.profile ?? "none")")
+                
+                // Load profile image if available
+                if let urlString = athlete.profile, let url = URL(string: urlString) {
+                    self.loadProfileImage(from: url)
+                }
+                
+            } else {
+                print("No athlete found in demo mode, setting a default athlete")
+                let newAthlete = Athlete(context: managedObjectContext)
+                newAthlete.firstname = "Demo User"
+                newAthlete.id = 26493868
+                newAthlete.profile = "https://dgalywyr863hv.cloudfront.net/pictures/athletes/26493868/8338609/1/large.jpg"
+                self.athlete = newAthlete
+                
+                // Load the default profile image
+                if let url = URL(string: newAthlete.profile!) {
+                    self.loadProfileImage(from: url)
+                }
+                
+                do {
+                    try managedObjectContext.save()
+                    print("Saved demo athlete data")
+                } catch {
+                    print("Error saving demo athlete data: \(error)")
+                }
+            }
             completion(.success(()))
             return
         }
@@ -224,30 +274,79 @@ class StravaHelper: ObservableObject {
             
             let decoder = JSONDecoder()
             decoder.userInfo[CodingUserInfoKey.managedObjectContext] = self.managedObjectContext
+            
             let responseSerializer = DecodableResponseSerializer<Athlete>(decoder: decoder)
             
-            AF.request(ApiEndpoints.athlete, headers: ["Authorization": "Bearer \(accessToken)"])
-              .response(responseSerializer: responseSerializer) { response in
-                  switch response.result {
-                  case .success(_):
-                      do {
-                          try self.managedObjectContext.save()
-                          completion(.success(()))
-                      } catch {
-                          print("Error saving athlete data: \(error)")
-                          completion(.failure(error))
-                      }
-                  case .failure(let error):
-                      print("API error fetching athlete: \(error)")
-                      completion(.failure(error))
-                  }
-              }
+            AF.request(ApiEndpoints.athlete, headers: ["Authorization": "Bearer \(accessToken)"]).response(responseSerializer: responseSerializer) { response in
+                switch response.result {
+                case .success(let athlete):
+                    self.athlete = athlete
+                    
+                    // Load profile image if available
+                    if let urlString = athlete.profile, let url = URL(string: urlString) {
+                        self.loadProfileImage(from: url)
+                    }
+                    
+                    do {
+                        try self.managedObjectContext.save()
+                        completion(.success(()))
+                    } catch {
+                        print("Error saving athlete data: \(error)")
+                        completion(.failure(error))
+                    }
+                case .failure(let error):
+                    print("API error fetching athlete: \(error)")
+                    completion(.failure(error))
+                }
+            }
         }
     }
     
     func fetchActivities(completion: @escaping (Result<Void, Error>) -> Void) {
         // Skip API calls in demo mode
         if isDemoMode() {
+            print("Demo Mode - Creating test bikes and activities")
+            
+            // Check if we already have demo bikes and activities
+            let bikes = getBikes()
+            if bikes.isEmpty {
+                // Create test bikes
+                let demoBikes = [
+                    createBike(id: "b1", name: "Kenevo", distance: 99999, in: managedObjectContext),
+                    createBike(id: "b2", name: "StumpJumper", distance: 99999, in: managedObjectContext),
+                    createBike(id: "b3", name: "Checkpoint", distance: 99999, in: managedObjectContext),
+                    createBike(id: "b4", name: "TimberJACKED", distance: 99999, in: managedObjectContext)
+                ]
+                
+                // Create activities for the first bike
+                createActivity(id: 1111111, gearId: "b1", speed: 12.05, time: 645, name: "Test Activity 1", daysAgo: 5, in: managedObjectContext)
+                createActivity(id: 2222222, gearId: "b1", speed: 15.06, time: 1585, name: "Test Activity 2", daysAgo: 3, in: managedObjectContext)
+                createActivity(id: 3333333, gearId: "b1", speed: 9.03, time: 2765, name: "Test Activity 3", daysAgo: 6, in: managedObjectContext)
+                
+                // Create service intervals for the first bike
+                createServiceInterval(part: "chain", interval: 5, bike: demoBikes[0], in: managedObjectContext)
+                createServiceInterval(part: "Fork Lowers", interval: 10, bike: demoBikes[0], in: managedObjectContext)
+                createServiceInterval(part: "Shock", interval: 15, bike: demoBikes[0], in: managedObjectContext)
+                
+                // Save changes
+                do {
+                    try managedObjectContext.save()
+                    self.bikes = demoBikes
+                } catch {
+                    print("Failed to save demo data: \(error)")
+                }
+            } else {
+                self.bikes = bikes
+            }
+            
+            // Load activities
+            let fetchRequest: NSFetchRequest<Activity> = Activity.fetchRequest() as! NSFetchRequest<Activity>
+            do {
+                self.activities = try managedObjectContext.fetch(fetchRequest)
+            } catch {
+                print("Failed to fetch activities: \(error)")
+            }
+            
             completion(.success(()))
             return
         }
@@ -260,82 +359,82 @@ class StravaHelper: ObservableObject {
                 return
             }
             
-            let headers: HTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
+            let headers: HTTPHeaders = [
+                "Authorization": "Bearer \(accessToken)"
+            ]
+            
             let parameters: [String: Any] = [
                 "page": 1,
-                "per_page": 5,
+                "per_page": 30,
                 "type": "Ride"
             ]
             
             let decoder = JSONDecoder()
             decoder.userInfo[CodingUserInfoKey.managedObjectContext] = self.managedObjectContext
+            
             let responseSerializer = DecodableResponseSerializer<[Activity]>(decoder: decoder)
             
             AF.request(ApiEndpoints.activities, parameters: parameters, headers: headers)
                 .validate(statusCode: 200..<300)
-                .response(responseSerializer: responseSerializer) { [weak self] response in
-                    guard let self = self else { return }
-                    
+                .response(responseSerializer: responseSerializer, completionHandler: { response in
                     switch response.result {
                     case .success(let activities):
-                        self.bikes = self.getBikes()
                         self.activities = activities
-                        
+                        self.bikes = self.getBikes()
                         do {
                             try self.managedObjectContext.save()
                             completion(.success(()))
                         } catch {
-                            print(ErrorMessages.saveFailed + ": \(error)")
+                            print("Failed to save managed object context: \(error)")
                             completion(.failure(error))
                         }
                     case .failure(let error):
                         completion(.failure(error))
                     }
-                }
+                })
         }
     }
     
-    // MARK: - Data Management
     func getBikes() -> [Bike] {
         let fetchRequest: NSFetchRequest<Bike> = Bike.fetchRequest() as! NSFetchRequest<Bike>
-        
         do {
             let bikes = try self.managedObjectContext.fetch(fetchRequest)
             return bikes
         } catch {
-            print("\(ErrorMessages.fetchBikesFailed): \(error)")
+            print("Failed to fetch bikes: \(error)")
             return []
+        }
+    }
+    
+    func checkServiceIntervals() {
+        let serviceIntervals = fetchServiceIntervals()
+        
+        serviceIntervals.forEach { interval in
+            let timeUntilService = calculateTimeUntilService(for: interval)
+            if timeUntilService <= 0 && interval.notify {
+                NotificationService.shared.sendNotification(for: interval)
+            }
         }
     }
     
     func fetchServiceIntervals() -> [ServiceInterval] {
         let fetchRequest: NSFetchRequest<ServiceInterval> = ServiceInterval.fetchRequest() as! NSFetchRequest<ServiceInterval>
-        
         do {
-            return try self.managedObjectContext.fetch(fetchRequest)
+            let serviceIntervals = try self.managedObjectContext.fetch(fetchRequest)
+            return serviceIntervals
         } catch {
-            print("\(ErrorMessages.fetchIntervalsFailed): \(error)")
+            print("Failed to fetch ServiceInterval objects: \(error)")
             return []
         }
     }
     
-    func calculateTimeUntilService(for servInt: ServiceInterval) -> Double {
-        let totalRideTime = servInt.bike.rideTime(context: self.managedObjectContext)
-        let startTime = servInt.startTime
-        let intervalTime = servInt.intervalTime
+    func calculateTimeUntilService(for serviceInterval: ServiceInterval) -> Double {
+        let totalRideTime = serviceInterval.bike.rideTime(context: self.managedObjectContext)
+        let startTime = serviceInterval.startTime
+        let intervalTime = serviceInterval.intervalTime
         
-        return intervalTime - (totalRideTime - startTime)
-    }
-    
-    func checkServiceIntervals() {
-        let serviceIntervals = fetchServiceIntervals()
-        let notificationManager = NotificationManager()
-        
-        serviceIntervals.forEach { interval in
-            if interval.bike.rideTime(context: self.managedObjectContext) >= interval.intervalTime {
-                notificationManager.sendNotification(for: interval)
-            }
-        }
+        let currentIntervalTime = totalRideTime - startTime
+        return intervalTime - currentIntervalTime
     }
     
     // MARK: - Test Data
@@ -355,6 +454,7 @@ class StravaHelper: ObservableObject {
         let newAthlete = Athlete(context: viewContext)
         newAthlete.firstname = "testuser"
         newAthlete.id = 26493868
+        newAthlete.profile = "https://dgalywyr863hv.cloudfront.net/pictures/athletes/26493868/8338609/1/large.jpg"
         
         // Create bikes
         let bikes = [
@@ -420,17 +520,12 @@ class StravaHelper: ObservableObject {
         serviceInterval.bike = bike
         serviceInterval.notify = true
     }
-}
-
-// MARK: - Auth Presentation Context Provider
-extension StravaHelper {
+    
     class AuthenticationSession: NSObject, ASWebAuthenticationPresentationContextProviding {
         func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-            guard let windowScene = UIApplication.shared.connectedScenes.first(where: { 
-                $0.activationState == .foregroundActive && $0 is UIWindowScene 
-            }) as? UIWindowScene,
+            guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive && $0 is UIWindowScene }) as? UIWindowScene,
                   let window = windowScene.windows.first else {
-                fatalError("Could not find appropriate window for authentication")
+                fatalError("Unable to find an active window")
             }
             
             return window

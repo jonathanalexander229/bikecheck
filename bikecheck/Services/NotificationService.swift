@@ -1,40 +1,30 @@
-//
-//  NotificationService.swift
-//  bikecheck
-//
-//  Created by clutchcoder on 3/2/24.
-//
 import UserNotifications
 import BackgroundTasks
 
-class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
-
-    static let shared = NotificationManager()
-
+class NotificationService: NSObject, UNUserNotificationCenterDelegate {
+    static let shared = NotificationService()
+    
     let center = UNUserNotificationCenter.current()
-
-    func requestAuthorization() {
+    
+    override init() {
+        super.init()
+        center.delegate = self
+    }
+    
+    func requestAuthorization(completion: @escaping (Bool, Error?) -> Void) {
         center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if let error = error {
-                // Handle the error here.
-                print("Error: \(error)")
-            }
-            // Handle the case where the user does not grant permission.
+            completion(granted, error)
         }
     }
-
+    
     func sendNotification(for interval: ServiceInterval) {
-        if interval.notify {    
+        if interval.notify {
             print("Sending notification")
             let content = UNMutableNotificationContent()
             content.title = "\(interval.bike.name) Service Reminder"
             content.body = "It's time to service your \(interval.part)."
             content.sound = UNNotificationSound.default
-
-        // Add a deep link to the notification
-        //  let url = URL(string: "bikecheck://serviceInterval/\(interval.id)")!
-        //  content.userInfo = ["targetURL": url.absoluteString]
-                
+            
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
             
             center.add(request) { (error) in
@@ -46,12 +36,12 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
             }
         }
     }
+    
     func scheduleBackgroundTask() {
-        //sendNotification()
         print("scheduling serviceInt Notification background task")
         let request = BGAppRefreshTaskRequest(identifier: "checkServiceInterval")
-        request.earliestBeginDate = Calendar.current.date(byAdding: .minute, value: 6, to: Date())// 6 hours from now
-        print(request)
+        request.earliestBeginDate = Calendar.current.date(byAdding: .minute, value: 6, to: Date())
+        
         do {
             try BGTaskScheduler.shared.submit(request)
         } catch {
@@ -59,4 +49,8 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("Received notification while in the foreground")
+        completionHandler([.banner, .sound])
+    }
 }
