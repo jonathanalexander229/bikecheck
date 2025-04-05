@@ -20,7 +20,7 @@ struct bikecheckApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if stravaHelper.isSignedIn ?? false {
+                if stravaHelper.isSignedIn {
                     HomeView()
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .environmentObject(stravaHelper)
@@ -33,7 +33,7 @@ struct bikecheckApp: App {
         }
         .backgroundTask(.appRefresh("checkServiceInterval")) { task in
             // Check if the user is signed in before proceeding with the background task
-            if await stravaHelper.isSignedIn ?? false {
+            if await stravaHelper.isSignedIn {
                 print("Background task checkServiceInterval executed.")
                 await stravaHelper.checkServiceIntervals()
 
