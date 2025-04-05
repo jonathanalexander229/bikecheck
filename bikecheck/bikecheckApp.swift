@@ -1,9 +1,3 @@
-//
-//  bikecheckApp.swift
-//  bikecheck
-//
-//  Created by clutchcoder on 1/2/24.
-//
 import SwiftUI
 import BackgroundTasks
 
@@ -11,12 +5,20 @@ import BackgroundTasks
 struct bikecheckApp: App {
     let persistenceController = PersistenceController.shared
     @StateObject var stravaHelper = StravaHelper(context: PersistenceController.shared.container.viewContext)
+    
+    // ViewModels as StateObjects at app level to maintain consistent state
+    @StateObject var bikesViewModel = BikesViewModel()
+    @StateObject var activitiesViewModel = ActivitiesViewModel()
+    @StateObject var serviceViewModel = ServiceViewModel()
+    @StateObject var loginViewModel = LoginViewModel(stravaHelper: StravaHelper.shared)
+    
     let notificationDelegate = NotificationDelegate()
-
+    
     init() {
         UNUserNotificationCenter.current().delegate = notificationDelegate
+        setupBackgroundTasks()
     }
-
+    
     var body: some Scene {
         WindowGroup {
             Group {
@@ -24,29 +26,56 @@ struct bikecheckApp: App {
                     HomeView()
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .environmentObject(stravaHelper)
+                        .environmentObject(bikesViewModel)
+                        .environmentObject(activitiesViewModel)
+                        .environmentObject(serviceViewModel)
                 } else {
                     LoginView()
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .environmentObject(stravaHelper)
+                        .environmentObject(loginViewModel)
                 }
             }
         }
-        .backgroundTask(.appRefresh("checkServiceInterval")) { task in
-            // Check if the user is signed in before proceeding with the background task
+        .backgroundTask(.appRefresh("com.bikecheck.checkServiceInterval")) { task in
             if await stravaHelper.isSignedIn {
                 print("Background task checkServiceInterval executed.")
                 await stravaHelper.checkServiceIntervals()
-
-                // Schedule the next background task
-                // Note: This scheduling should be done carefully to avoid immediate re-triggering
-                // Consider using a more appropriate scheduling mechanism or conditions
             }
         }
-        .backgroundTask(.appRefresh("fetchActivities")) { task in
+        .backgroundTask(.appRefresh("com.bikecheck.fetchActivities")) { task in
             print("Background task fetchActivities executed.")
             await stravaHelper.fetchActivities { _ in }
-            // Schedule the next background task
-            // Note: Implement scheduling logic here if needed
+        }
+    }
+    
+    private func setupBackgroundTasks() {
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.bikecheck.fetchActivities", using: nil) { task in
+            handleBackgroundTask(task: task as! BGAppRefreshTask)
+        }
+        
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.bikecheck.checkServiceInterval", using: nil) { task in
+            handleBackgroundTask(task: task as! BGAppRefreshTask)
+        }
+    }
+    
+    private func handleBackgroundTask(task: BGAppRefreshTask) {
+        task.expirationHandler = {
+            task.setTaskCompleted(success: false)
+        }
+        
+        if task.identifier == "com.bikecheck.fetchActivities" {
+            stravaHelper.fetchActivities { result in
+                switch result {
+                case .success:
+                    task.setTaskCompleted(success: true)
+                case .failure:
+                    task.setTaskCompleted(success: false)
+                }
+            }
+        } else if task.identifier == "com.bikecheck.checkServiceInterval" {
+            stravaHelper.checkServiceIntervals()
+            task.setTaskCompleted(success: true)
         }
     }
 }

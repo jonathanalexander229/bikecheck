@@ -1,43 +1,35 @@
-//
-//  LoginView.swift
-//  bikeCheck
-//
-//  Created by clutchcoder on 12/24/23.
-//
-
 import SwiftUI
-//import AuthenticationServices
 
 struct LoginView: View {
-    @EnvironmentObject var stravaAuth: StravaHelper
-
-    @State private var isLoading = false
+    @EnvironmentObject var stravaHelper: StravaHelper
+    @StateObject private var viewModel: LoginViewModel
+    
+    init() {
+        _viewModel = StateObject(wrappedValue: LoginViewModel(stravaHelper: StravaHelper.shared))
+    }
     
     var body: some View {
         Group {
-            if isLoading {
+            if viewModel.isLoading {
                 ProgressView()
                     .scaleEffect(2)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .edgesIgnoringSafeArea(.all)
             } else {
-                VStack(spacing: 20) { // Add VStack here
-                    Text("BikeCheck") // App title
+                VStack(spacing: 20) {
+                    Text("BikeCheck")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-
+                    
                     Image("BikeCheckLogo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 150, height: 150)
-                        .cornerRadius(30) // Makes the image circular
-                        .shadow(color: .gray, radius: 1, x: 5, y: 5) // Adds a shadow for a 3D effect
-
+                        .cornerRadius(30)
+                        .shadow(color: .gray, radius: 1, x: 5, y: 5)
+                    
                     Button(action: {
-                        isLoading = true
-                        stravaAuth.authenticate { success in
-                            isLoading = false
-                        }
+                        viewModel.authenticate { _ in }
                     }) {
                         Text("Sign in with Strava")
                             .frame(width: 280, height: 60)
@@ -46,45 +38,41 @@ struct LoginView: View {
                             .cornerRadius(10)
                     }
                     
+                    #if DEBUG
                     Button(action: {
-                        stravaAuth.insertTestData()
-                       }) {
-                           Text("Insert Test Data")
-                               .frame(width: 280, height: 60)
-                               .background(Color.green)
-                               .foregroundColor(.white)
-                               .cornerRadius(10)
-                       }
+                        viewModel.insertTestData()
+                    }) {
+                        Text("Insert Test Data")
+                            .frame(width: 280, height: 60)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    #endif
                 }
             }
         }
         .onOpenURL { url in
-            // Handle the URL
             if url.scheme == "bikecheck" {
-                // Extract the auth code from the URL
                 let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
                 let authCode = components?.queryItems?.first(where: { $0.name == "code" })?.value
-                print(url)
-                // Use the auth code to request an access token
-                stravaAuth.requestStravaTokens(with: authCode!) { success in
-                    if success {
-                        // The `TokenInfo` was successfully stored in `UserDefaults`.
-                        DispatchQueue.main.async {
-                            stravaAuth.isSignedIn = true
-                            isLoading = false
-                        }
-                    } else {
-                        print("error")// The `TokenInfo` could not be stored in `UserDefaults`.
-                        DispatchQueue.main.async {
-                            isLoading = false
+                
+                if let code = authCode {
+                    stravaHelper.requestStravaTokens(with: code) { success in
+                        if success {
+                            DispatchQueue.main.async {
+                                stravaHelper.isSignedIn = true
+                                viewModel.isLoading = false
+                            }
+                        } else {
+                            print("Error requesting tokens")
+                            DispatchQueue.main.async {
+                                viewModel.isLoading = false
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
-
-#Preview {
-    LoginView()
 }

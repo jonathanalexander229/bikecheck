@@ -1,89 +1,52 @@
-//
-//  ServiceView.swift
-//  bikecheck
-//
-//  Created by clutchcoder on 4/30/24.
-//
-
 import SwiftUI
-import CoreData
-import UserNotifications
-import BackgroundTasks
 
 struct ServiceView: View {
-
-    @State private var showingServiceIntervalView = false
-
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var stravaHelper: StravaHelper
-    //@State private var bikesViewModel: BikesViewModel? = nil
-    
+    @StateObject private var viewModel = ServiceViewModel()
+    @State private var showingServiceIntervalView = false
     @Binding var uiImage: UIImage?
     
-    @FetchRequest(
-        entity: TokenInfo.entity(), sortDescriptors: [],
-        animation: .default)
-    private var tokenInfo: FetchedResults<TokenInfo>
-    
-    @FetchRequest(
-        entity: Athlete.entity(), sortDescriptors: [],
-        animation: .default)
-    private var athlete: FetchedResults<Athlete>
-    
-    @FetchRequest(
-        entity: Bike.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Bike.name, ascending: false)],
-        animation: .default)
-    private var bikes: FetchedResults<Bike>
-    
-    @FetchRequest(
-        entity: Activity.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Activity.startDate, ascending: false)],
-        predicate: NSPredicate(format: "type == %@", "Ride"),
-        animation: .default)
-    private var activities: FetchedResults<Activity>
-    
-    @FetchRequest(
-        entity: ServiceInterval.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \ServiceInterval.startTime, ascending: true)]
-    ) var serviceIntervals: FetchedResults<ServiceInterval>
-    
-        var body: some View {
-        
+    var body: some View {
         NavigationView {
-            
-            List {
-//                Button(action: {
-//                    showingAddServiceIntervalView = true
-//                }) {
-//                    HStack {
-//                        Image(systemName: "plus.circle.fill")
-//                        Text("Add New Service Interval")
-//                    }
-//                    .foregroundColor(.blue)
-//                }
-//                .sheet(isPresented: $showingAddServiceIntervalView) {
-//                    ServiceIntervalView()
-//                }
-                ForEach(Array(serviceIntervals), id: \.self) { servInt in
-                    NavigationLink(destination: AddServiceIntervalView(serviceInterval: servInt)
-                       // .navigationBarItems(trailing: editButton)
-                    ) {
-                        VStack(alignment: .leading) {
-                            Text(servInt.bike.name )
-                                .font(.subheadline)
-                            let totalRideTime = servInt.bike.rideTime(context: viewContext)
-                            let startTime = servInt.startTime
-                            let intervalTime = servInt.intervalTime
-
-                            let currentIntervalTime = totalRideTime - startTime
-                            let timeUntilService = intervalTime - currentIntervalTime
-
-                            
-                            HStack {
-                                Text("service \(servInt.part.lowercased())").font(.subheadline).italic()
-                                Spacer()
-                                Text("in \(String(format: "%.2f", timeUntilService)) hrs")
+            Group {
+                if viewModel.isLoading {
+                    ProgressView("Loading service intervals...")
+                } else if let error = viewModel.error {
+                    Text("Error: \(error.localizedDescription)")
+                } else if viewModel.serviceIntervals.isEmpty {
+                    VStack {
+                        Text("No service intervals found")
+                        
+                        Button(action: {
+                            showingServiceIntervalView = true
+                        }) {
+                            Text("Add Service Interval")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
+                    }
+                } else {
+                    List {
+                        ForEach(viewModel.serviceIntervals, id: \.self) { serviceInterval in
+                            NavigationLink(destination: AddServiceIntervalView(serviceInterval: serviceInterval)) {
+                                VStack(alignment: .leading) {
+                                    Text(serviceInterval.bike.name)
+                                        .font(.subheadline)
+                                    
+                                    let timeUntilService = viewModel.calculateTimeUntilService(for: serviceInterval)
+                                    
+                                    HStack {
+                                        Text("service \(serviceInterval.part.lowercased())")
+                                            .font(.subheadline)
+                                            .italic()
+                                        Spacer()
+                                        Text("in \(String(format: "%.2f", timeUntilService)) hrs")
+                                            .foregroundColor(timeUntilService <= 0 ? .red : .primary)
+                                    }
+                                }
                             }
                         }
                     }
@@ -94,26 +57,13 @@ struct ServiceView: View {
             .navigationBarItems(
                 leading: profileImage,
                 trailing: addButton
-            ).sheet(isPresented: $showingServiceIntervalView) {
-                    AddServiceIntervalView()
+            )
+            .sheet(isPresented: $showingServiceIntervalView) {
+                AddServiceIntervalView()
             }
-        }
-        
-    }
-    
-    var editButton: some View {
-        Button(action: {
-            // Add your edit action here
-        }) {
-            Text("Edit")
-        }
-    }
-
-    var addButton: some View {
-        Button(action: {
-            showingServiceIntervalView = true
-        }) {
-            Image(systemName: "plus")
+            .onAppear {
+                viewModel.loadServiceIntervals()
+            }
         }
     }
     
@@ -128,6 +78,14 @@ struct ServiceView: View {
             } else {
                 EmptyView()
             }
+        }
+    }
+    
+    var addButton: some View {
+        Button(action: {
+            showingServiceIntervalView = true
+        }) {
+            Image(systemName: "plus")
         }
     }
 }

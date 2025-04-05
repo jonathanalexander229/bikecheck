@@ -1,71 +1,39 @@
-//
-//  ContentView.swift
-//  bikecheck
-//
-//  Created by clutchcoder on 1/2/24.
-//
-
 import SwiftUI
-import CoreData
-import UserNotifications
-import BackgroundTasks
 
 struct ActivitiesView: View {
-
-    @State private var showingAddServiceIntervalView = false
-
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var stravaHelper: StravaHelper
-    //@State private var bikesViewModel: BikesViewModel? = nil
+    @StateObject private var viewModel = ActivitiesViewModel()
     @Binding var uiImage: UIImage?
-    
-    @FetchRequest(
-        entity: TokenInfo.entity(), sortDescriptors: [],
-        animation: .default)
-    private var tokenInfo: FetchedResults<TokenInfo>
-    
-    @FetchRequest(
-        entity: Athlete.entity(), sortDescriptors: [],
-        animation: .default)
-    private var athlete: FetchedResults<Athlete>
-    
-    @FetchRequest(
-        entity: Bike.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Bike.name, ascending: false)],
-        animation: .default)
-    private var bikes: FetchedResults<Bike>
-    
-    @FetchRequest(
-        entity: Activity.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Activity.startDate, ascending: false)],
-        predicate: NSPredicate(format: "type == %@", "Ride"),
-        animation: .default)
-    private var activities: FetchedResults<Activity>
-    
-    @FetchRequest(
-        entity: ServiceInterval.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \ServiceInterval.startTime, ascending: true)]
-    ) var serviceIntervals: FetchedResults<ServiceInterval>
     
     var body: some View {
         NavigationView {
-            List {
-                
-                ForEach(Array(activities), id: \.self) { activity in
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(activity.name)
-                            Spacer()
-                        }
-                        HStack {
-                            Text("\(String(format: "%.2f", Double(activity.movingTime) / 3600)) hours")
-                            Spacer()
-                            Text("\(String(format: "%.2f", activity.distance / 1000)) km")
-                        }
-                        HStack {
-                            Text("\(bikes.first(where: { $0.id == activity.gearId })?.name ?? "none")")
-                            Spacer()
-                            Text("\(DateFormatter.localizedString(from: activity.startDate, dateStyle: .medium, timeStyle: .none))")
+            Group {
+                if viewModel.isLoading {
+                    ProgressView("Loading activities...")
+                } else if let error = viewModel.error {
+                    Text("Error: \(error.localizedDescription)")
+                } else if viewModel.activities.isEmpty {
+                    Text("No activities found")
+                } else {
+                    List {
+                        ForEach(viewModel.activities, id: \.self) { activity in
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text(activity.name)
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text(viewModel.getFormattedDuration(for: activity))
+                                    Spacer()
+                                    Text(viewModel.getFormattedDistance(for: activity))
+                                }
+                                HStack {
+                                    Text(viewModel.getBikeName(for: activity))
+                                    Spacer()
+                                    Text(viewModel.getFormattedDate(for: activity))
+                                }
+                            }
                         }
                     }
                 }
@@ -73,8 +41,12 @@ struct ActivitiesView: View {
             .navigationTitle("Activities")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading: profileImage)
+            .onAppear {
+                viewModel.loadActivities()
+            }
         }
     }
+    
     var profileImage: some View {
         Group {
             if let image = uiImage {

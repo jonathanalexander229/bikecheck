@@ -1,46 +1,36 @@
-import SwiftUI
+import Foundation
+import Combine
 import CoreData
 
-class BikesViewModel: ObservableObject {
-    @Published var bikes: [Bike] = []
-    @Published var isLoading = false
-    @Published var error: Error?
-    @Published var uiImage: UIImage?
+class BikeDetailViewModel: ObservableObject {
+    @Published var bike: Bike
+    @Published var showingConfirmationDialog = false
     
     private let context: NSManagedObjectContext
     
-    init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
+    init(bike: Bike, context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
+        self.bike = bike
         self.context = context
-        loadBikes()
     }
     
-    func loadBikes() {
-        isLoading = true
-        
-        let fetchRequest: NSFetchRequest<Bike> = Bike.fetchRequest() as! NSFetchRequest<Bike>
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Bike.name, ascending: false)]
-        
-        do {
-            bikes = try context.fetch(fetchRequest)
-            isLoading = false
-        } catch {
-            print("Failed to fetch bikes: \(error)")
-            self.error = error
-            isLoading = false
-        }
+    func getTotalRideTime() -> String {
+        return String(format: "%.2f", bike.rideTime(context: context))
     }
     
-    func getTotalRideTime(for bike: Bike) -> String {
-        return String(format: "%.2f hrs", bike.rideTime(context: context))
+    func getActivityCount() -> Int {
+        return bike.activities(context: context).count
     }
     
-    func deleteBike(_ bike: Bike) {
+    func getMileage() -> String {
+        return String(format: "%.2f", (bike.distance) * 0.000621371)
+    }
+    
+    func deleteBike() {
         context.delete(bike)
         saveContext()
-        loadBikes()
     }
     
-    func createDefaultServiceIntervals(for bike: Bike) {
+    func createDefaultServiceIntervals() {
         let newServInt1 = ServiceInterval(context: context)
         let newServInt2 = ServiceInterval(context: context)
         let newServInt3 = ServiceInterval(context: context)
