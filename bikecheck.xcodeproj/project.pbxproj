@@ -7,27 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A31ED1672B6AFBF40005E257 /* BikesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31ED1662B6AFBF40005E257 /* BikesViewModel.swift */; };
 		A338D4542BE1695900E18ED8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338D4532BE1695900E18ED8 /* HomeView.swift */; };
 		A338D4562BE172E500E18ED8 /* ServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338D4552BE172E500E18ED8 /* ServiceView.swift */; };
 		A338D4582BE1823000E18ED8 /* ActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338D4572BE1823000E18ED8 /* ActivitiesView.swift */; };
 		A365B0012B44D34900FF712E /* bikecheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0002B44D34900FF712E /* bikecheckApp.swift */; };
 		A365B0032B44D34900FF712E /* BikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0022B44D34900FF712E /* BikesView.swift */; };
 		A365B0082B44D34A00FF712E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A365B0072B44D34A00FF712E /* Preview Assets.xcassets */; };
-		A365B00A2B44D34A00FF712E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0092B44D34A00FF712E /* Persistence.swift */; };
 		A365B00D2B44D34A00FF712E /* bikecheck.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A365B00B2B44D34A00FF712E /* bikecheck.xcdatamodeld */; };
 		A365B0172B44D34A00FF712E /* bikecheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0162B44D34A00FF712E /* bikecheckTests.swift */; };
 		A365B0212B44D34A00FF712E /* bikecheckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0202B44D34A00FF712E /* bikecheckUITests.swift */; };
 		A365B0232B44D34A00FF712E /* bikecheckUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0222B44D34A00FF712E /* bikecheckUITestsLaunchTests.swift */; };
 		A365B0312B44D37300FF712E /* TokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0302B44D37300FF712E /* TokenInfo.swift */; };
 		A365B0332B44D39900FF712E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0322B44D39900FF712E /* LoginView.swift */; };
-		A365B0372B44D3DD00FF712E /* StravaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0362B44D3DD00FF712E /* StravaHelper.swift */; };
 		A365B03A2B44D41000FF712E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A365B0392B44D41000FF712E /* Alamofire */; };
 		A39ADD9E2B54A8CD0038AC55 /* ServiceInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39ADD9D2B54A8CD0038AC55 /* ServiceInterval.swift */; };
+		A3AB07E42DA1CAAC00935BB8 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB07E12DA1CAAC00935BB8 /* LoginViewModel.swift */; };
+		A3AB07E52DA1CAAC00935BB8 /* BikesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB07E02DA1CAAC00935BB8 /* BikesViewModel.swift */; };
+		A3AB07E62DA1CAAC00935BB8 /* ActivitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB07DD2DA1CAAC00935BB8 /* ActivitiesViewModel.swift */; };
+		A3AB07E72DA1CAAC00935BB8 /* AddServiceIntervalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB07DE2DA1CAAC00935BB8 /* AddServiceIntervalViewModel.swift */; };
+		A3AB07E82DA1CAAC00935BB8 /* ServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB07E22DA1CAAC00935BB8 /* ServiceViewModel.swift */; };
+		A3AB07EA2DA1CAAC00935BB8 /* BikeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB07DF2DA1CAAC00935BB8 /* BikeDetailViewModel.swift */; };
+		A3AB07F02DA1DF0100935BB8 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB07EC2DA1DF0100935BB8 /* DataService.swift */; };
+		A3AB07F12DA1DF0100935BB8 /* StravaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB07EE2DA1DF0100935BB8 /* StravaService.swift */; };
+		A3AB07F22DA1DF0100935BB8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB07ED2DA1DF0100935BB8 /* NotificationService.swift */; };
+		A3AB07F42DA1E46200935BB8 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB07F32DA1E46200935BB8 /* PersistenceController.swift */; };
 		A3C2EC792C237B7500BA2BC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A365B0042B44D34A00FF712E /* Assets.xcassets */; };
 		A3E40C952B8F033000536F51 /* AddServiceIntervalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E40C942B8F033000536F51 /* AddServiceIntervalView.swift */; };
-		A3E40C9B2B93F82700536F51 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E40C9A2B93F82700536F51 /* NotificationManager.swift */; };
-		A3E40C9D2B96A9A900536F51 /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E40C9C2B96A9A900536F51 /* NotificationDelegate.swift */; };
 		A3E742952B46FDEE00C5191F /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E742922B46FDEE00C5191F /* Athlete.swift */; };
 		A3E742962B46FDEE00C5191F /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E742932B46FDEE00C5191F /* Activity.swift */; };
 		A3E742972B46FDEE00C5191F /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E742942B46FDEE00C5191F /* Bike.swift */; };
@@ -52,7 +57,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A31ED1662B6AFBF40005E257 /* BikesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikesViewModel.swift; sourceTree = "<group>"; };
 		A338D4532BE1695900E18ED8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A338D4552BE172E500E18ED8 /* ServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceView.swift; sourceTree = "<group>"; };
 		A338D4572BE1823000E18ED8 /* ActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesView.swift; sourceTree = "<group>"; };
@@ -61,7 +65,6 @@
 		A365B0022B44D34900FF712E /* BikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikesView.swift; sourceTree = "<group>"; };
 		A365B0042B44D34A00FF712E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A365B0072B44D34A00FF712E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A365B0092B44D34A00FF712E /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		A365B00C2B44D34A00FF712E /* bikecheck.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = bikecheck.xcdatamodel; sourceTree = "<group>"; };
 		A365B0122B44D34A00FF712E /* bikecheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bikecheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A365B0162B44D34A00FF712E /* bikecheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckTests.swift; sourceTree = "<group>"; };
@@ -70,12 +73,19 @@
 		A365B0222B44D34A00FF712E /* bikecheckUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A365B0302B44D37300FF712E /* TokenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
 		A365B0322B44D39900FF712E /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		A365B0362B44D3DD00FF712E /* StravaHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StravaHelper.swift; sourceTree = "<group>"; };
 		A365B03B2B44D93700FF712E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A39ADD9D2B54A8CD0038AC55 /* ServiceInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInterval.swift; sourceTree = "<group>"; };
+		A3AB07DD2DA1CAAC00935BB8 /* ActivitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesViewModel.swift; sourceTree = "<group>"; };
+		A3AB07DE2DA1CAAC00935BB8 /* AddServiceIntervalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceIntervalViewModel.swift; sourceTree = "<group>"; };
+		A3AB07DF2DA1CAAC00935BB8 /* BikeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDetailViewModel.swift; sourceTree = "<group>"; };
+		A3AB07E02DA1CAAC00935BB8 /* BikesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikesViewModel.swift; sourceTree = "<group>"; };
+		A3AB07E12DA1CAAC00935BB8 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		A3AB07E22DA1CAAC00935BB8 /* ServiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceViewModel.swift; sourceTree = "<group>"; };
+		A3AB07EC2DA1DF0100935BB8 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		A3AB07ED2DA1DF0100935BB8 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		A3AB07EE2DA1DF0100935BB8 /* StravaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaService.swift; sourceTree = "<group>"; };
+		A3AB07F32DA1E46200935BB8 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		A3E40C942B8F033000536F51 /* AddServiceIntervalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServiceIntervalView.swift; sourceTree = "<group>"; };
-		A3E40C9A2B93F82700536F51 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
-		A3E40C9C2B96A9A900536F51 /* NotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
 		A3E742922B46FDEE00C5191F /* Athlete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; usesTabs = 0; };
 		A3E742932B46FDEE00C5191F /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		A3E742942B46FDEE00C5191F /* Bike.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
@@ -132,23 +142,14 @@
 			isa = PBXGroup;
 			children = (
 				A365B03B2B44D93700FF712E /* Info.plist */,
-				A365B0362B44D3DD00FF712E /* StravaHelper.swift */,
-				A365B02F2B44D36100FF712E /* Models */,
 				A365B0002B44D34900FF712E /* bikecheckApp.swift */,
-				A365B0022B44D34900FF712E /* BikesView.swift */,
-				A338D4572BE1823000E18ED8 /* ActivitiesView.swift */,
-				A338D4552BE172E500E18ED8 /* ServiceView.swift */,
-				A338D4532BE1695900E18ED8 /* HomeView.swift */,
-				A31ED1662B6AFBF40005E257 /* BikesViewModel.swift */,
-				A3E742982B4A774600C5191F /* BikeDetailView.swift */,
-				A365B0322B44D39900FF712E /* LoginView.swift */,
-				A365B0042B44D34A00FF712E /* Assets.xcassets */,
-				A365B0092B44D34A00FF712E /* Persistence.swift */,
 				A365B00B2B44D34A00FF712E /* bikecheck.xcdatamodeld */,
+				A365B0042B44D34A00FF712E /* Assets.xcassets */,
+				A365B02F2B44D36100FF712E /* Models */,
+				A3AB07EB2DA1DA3C00935BB8 /* Views */,
+				A3AB07E32DA1CAAC00935BB8 /* ViewModels */,
+				A3AB07EF2DA1DF0100935BB8 /* Services */,
 				A365B0062B44D34A00FF712E /* Preview Content */,
-				A3E40C9C2B96A9A900536F51 /* NotificationDelegate.swift */,
-				A3E40C942B8F033000536F51 /* AddServiceIntervalView.swift */,
-				A3E40C9A2B93F82700536F51 /* NotificationManager.swift */,
 			);
 			path = bikecheck;
 			sourceTree = "<group>";
@@ -188,6 +189,44 @@
 				A39ADD9D2B54A8CD0038AC55 /* ServiceInterval.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		A3AB07E32DA1CAAC00935BB8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A3AB07DD2DA1CAAC00935BB8 /* ActivitiesViewModel.swift */,
+				A3AB07DE2DA1CAAC00935BB8 /* AddServiceIntervalViewModel.swift */,
+				A3AB07DF2DA1CAAC00935BB8 /* BikeDetailViewModel.swift */,
+				A3AB07E02DA1CAAC00935BB8 /* BikesViewModel.swift */,
+				A3AB07E12DA1CAAC00935BB8 /* LoginViewModel.swift */,
+				A3AB07E22DA1CAAC00935BB8 /* ServiceViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A3AB07EB2DA1DA3C00935BB8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A365B0022B44D34900FF712E /* BikesView.swift */,
+				A338D4572BE1823000E18ED8 /* ActivitiesView.swift */,
+				A338D4552BE172E500E18ED8 /* ServiceView.swift */,
+				A338D4532BE1695900E18ED8 /* HomeView.swift */,
+				A3E742982B4A774600C5191F /* BikeDetailView.swift */,
+				A365B0322B44D39900FF712E /* LoginView.swift */,
+				A3E40C942B8F033000536F51 /* AddServiceIntervalView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A3AB07EF2DA1DF0100935BB8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A3AB07F32DA1E46200935BB8 /* PersistenceController.swift */,
+				A3AB07EC2DA1DF0100935BB8 /* DataService.swift */,
+				A3AB07ED2DA1DF0100935BB8 /* NotificationService.swift */,
+				A3AB07EE2DA1DF0100935BB8 /* StravaService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,16 +365,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A365B0372B44D3DD00FF712E /* StravaHelper.swift in Sources */,
 				A338D4582BE1823000E18ED8 /* ActivitiesView.swift in Sources */,
 				A365B0332B44D39900FF712E /* LoginView.swift in Sources */,
 				A39ADD9E2B54A8CD0038AC55 /* ServiceInterval.swift in Sources */,
-				A3E40C9D2B96A9A900536F51 /* NotificationDelegate.swift in Sources */,
-				A3E40C9B2B93F82700536F51 /* NotificationManager.swift in Sources */,
+				A3AB07E42DA1CAAC00935BB8 /* LoginViewModel.swift in Sources */,
+				A3AB07E52DA1CAAC00935BB8 /* BikesViewModel.swift in Sources */,
+				A3AB07E62DA1CAAC00935BB8 /* ActivitiesViewModel.swift in Sources */,
+				A3AB07E72DA1CAAC00935BB8 /* AddServiceIntervalViewModel.swift in Sources */,
+				A3AB07E82DA1CAAC00935BB8 /* ServiceViewModel.swift in Sources */,
+				A3AB07EA2DA1CAAC00935BB8 /* BikeDetailViewModel.swift in Sources */,
+				A3AB07F02DA1DF0100935BB8 /* DataService.swift in Sources */,
+				A3AB07F12DA1DF0100935BB8 /* StravaService.swift in Sources */,
+				A3AB07F22DA1DF0100935BB8 /* NotificationService.swift in Sources */,
 				A3E742992B4A774600C5191F /* BikeDetailView.swift in Sources */,
 				A3E742972B46FDEE00C5191F /* Bike.swift in Sources */,
-				A365B00A2B44D34A00FF712E /* Persistence.swift in Sources */,
 				A3E40C952B8F033000536F51 /* AddServiceIntervalView.swift in Sources */,
+				A3AB07F42DA1E46200935BB8 /* PersistenceController.swift in Sources */,
 				A365B0032B44D34900FF712E /* BikesView.swift in Sources */,
 				A365B0012B44D34900FF712E /* bikecheckApp.swift in Sources */,
 				A338D4542BE1695900E18ED8 /* HomeView.swift in Sources */,
@@ -344,7 +389,6 @@
 				A3E742962B46FDEE00C5191F /* Activity.swift in Sources */,
 				A365B00D2B44D34A00FF712E /* bikecheck.xcdatamodeld in Sources */,
 				A3E742952B46FDEE00C5191F /* Athlete.swift in Sources */,
-				A31ED1672B6AFBF40005E257 /* BikesViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
