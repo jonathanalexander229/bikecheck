@@ -3,7 +3,7 @@ import SwiftUI
 struct ServiceView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var stravaHelper: StravaHelper
-    @StateObject private var viewModel = ServiceViewModel()
+    @EnvironmentObject var viewModel: ServiceViewModel
     @State private var showingServiceIntervalView = false
     @Binding var uiImage: UIImage?
     

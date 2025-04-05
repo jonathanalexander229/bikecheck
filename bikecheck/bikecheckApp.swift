@@ -29,7 +29,6 @@ struct bikecheckApp: App {
         _loginViewModel = StateObject(wrappedValue: LoginViewModel(stravaHelper: sharedStravaHelper))
         
         UNUserNotificationCenter.current().delegate = notificationDelegate
-        setupBackgroundTasks()
     }
     
     var body: some Scene {
@@ -50,45 +49,22 @@ struct bikecheckApp: App {
                 }
             }
         }
-        .backgroundTask(.appRefresh("com.bikecheck.checkServiceInterval")) { task in
-            print("Background task checkServiceInterval executed.")
-            stravaHelper.checkServiceIntervals()
-            task.setTaskCompleted(success: true)
-        }
-        .backgroundTask(.appRefresh("com.bikecheck.fetchActivities")) { task in
-            print("Background task fetchActivities executed.")
-            stravaHelper.fetchActivities { _ in }
-            task.setTaskCompleted(success: true)
-        }
-    }
-    
-    private func setupBackgroundTasks() {
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.bikecheck.fetchActivities", using: nil) { task in
-            handleBackgroundTask(task: task as! BGAppRefreshTask)
-        }
-        
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.bikecheck.checkServiceInterval", using: nil) { task in
-            handleBackgroundTask(task: task as! BGAppRefreshTask)
-        }
-    }
-    
-    private func handleBackgroundTask(task: BGAppRefreshTask) {
-        task.expirationHandler = {
-            task.setTaskCompleted(success: false)
-        }
-        
-        if task.identifier == "com.bikecheck.fetchActivities" {
-            stravaHelper.fetchActivities { result in
-                switch result {
-                case .success:
-                    task.setTaskCompleted(success: true)
-                case .failure:
-                    task.setTaskCompleted(success: false)
-                }
+        .backgroundTask(.appRefresh("checkServiceInterval")) { task in
+            // Check if the user is signed in before proceeding with the background task
+            if await stravaHelper.isSignedIn {
+                print("Background task checkServiceInterval executed.")
+                await stravaHelper.checkServiceIntervals()
+
+                // Schedule the next background task
+                // Note: This scheduling should be done carefully to avoid immediate re-triggering
+                // Consider using a more appropriate scheduling mechanism or conditions
             }
-        } else if task.identifier == "com.bikecheck.checkServiceInterval" {
-            stravaHelper.checkServiceIntervals()
-            task.setTaskCompleted(success: true)
+        }
+        .backgroundTask(.appRefresh("fetchActivities")) { task in
+            print("Background task fetchActivities executed.")
+            await stravaHelper.fetchActivities { _ in }
+            // Schedule the next background task
+            // Note: Implement scheduling logic here if needed
         }
     }
 }

@@ -95,16 +95,29 @@ struct AddServiceIntervalView: View {
                     }
                 }
             }
-            .navigationTitle(viewModel.serviceInterval == nil ? "Add Service Interval" : "Edit Service Interval")
             .navigationBarItems(
-                leading: Button("Cancel") {
+                leading: viewModel.serviceInterval == nil ? Button("Cancel") {
                     presentationMode.wrappedValue.dismiss()
-                },
-                trailing: Button("Save") {
+                } : nil,
+                trailing: viewModel.serviceInterval == nil ? Button("Save") {
                     viewModel.saveServiceInterval()
                     presentationMode.wrappedValue.dismiss()
-                }
+                } : nil
             )
+            .onChange(of: presentationMode.wrappedValue.isPresented) { isPresented in
+                if !isPresented && viewModel.serviceInterval != nil && viewModel.hasUnsavedChanges {
+                    // Auto-save changes when navigating back
+                    viewModel.saveServiceInterval()
+                    viewModel.showUnsavedChangesAlert = true
+                }
+            }
+            .alert(isPresented: $viewModel.showUnsavedChangesAlert) {
+                Alert(
+                    title: Text("Changes Saved"),
+                    message: Text("Your changes have been saved."),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
             .onAppear {
                 viewModel.loadBikes()
             }

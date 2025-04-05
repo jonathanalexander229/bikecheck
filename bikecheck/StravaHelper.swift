@@ -210,6 +210,24 @@ class StravaHelper: ObservableObject {
     func getAthlete(completion: @escaping (Result<Void, Error>) -> Void) {
         // Skip API calls in demo mode
         if isDemoMode() {
+            print("Demo mode detected for getAthlete")
+            // In demo mode, check if we have a valid athlete already
+            if let athlete = self.athlete {
+                print("Using existing athlete in demo mode: \(athlete.firstname), profile URL: \(athlete.profile ?? "none")")
+            } else {
+                print("No athlete found in demo mode, setting a default athlete")
+                let newAthlete = Athlete(context: managedObjectContext)
+                newAthlete.firstname = "Demo User"
+                newAthlete.id = 12345
+                newAthlete.profile = "https://dgalywyr863hv.cloudfront.net/pictures/athletes/26493868/8338609/1/large.jpg"
+                self.athlete = newAthlete
+                do {
+                    try managedObjectContext.save()
+                    print("Saved demo athlete data")
+                } catch {
+                    print("Error saving demo athlete data: \(error)")
+                }
+            }
             completion(.success(()))
             return
         }
@@ -229,7 +247,9 @@ class StravaHelper: ObservableObject {
             AF.request(ApiEndpoints.athlete, headers: ["Authorization": "Bearer \(accessToken)"])
               .response(responseSerializer: responseSerializer) { response in
                   switch response.result {
-                  case .success(_):
+                  case .success(let athlete):
+                      print("Successfully fetched athlete: \(athlete.firstname), profile URL: \(athlete.profile ?? "none")")
+                      self.athlete = athlete
                       do {
                           try self.managedObjectContext.save()
                           completion(.success(()))

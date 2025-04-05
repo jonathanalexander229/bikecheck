@@ -3,7 +3,7 @@ import SwiftUI
 struct BikesView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var stravaHelper: StravaHelper
-    @StateObject private var viewModel = BikesViewModel()
+    @EnvironmentObject var viewModel: BikesViewModel
     @Binding var uiImage: UIImage?
     
     var body: some View {
