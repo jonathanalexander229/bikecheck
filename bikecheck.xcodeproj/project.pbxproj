@@ -152,6 +152,11 @@
 				A3AB083F2DA1EE1300935BB8 /* Views */,
 				A365B0042B44D34A00FF712E /* Assets.xcassets */,
 				A365B00B2B44D34A00FF712E /* bikecheck.xcdatamodeld */,
+				A365B0042B44D34A00FF712E /* Assets.xcassets */,
+				A365B02F2B44D36100FF712E /* Models */,
+				A3AB07EB2DA1DA3C00935BB8 /* Views */,
+				A3AB07E32DA1CAAC00935BB8 /* ViewModels */,
+				A3AB07EF2DA1DF0100935BB8 /* Services */,
 				A365B0062B44D34A00FF712E /* Preview Content */,
 			);
 			path = bikecheck;
