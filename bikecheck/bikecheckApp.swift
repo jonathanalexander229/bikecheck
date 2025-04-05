@@ -7,14 +7,27 @@ struct bikecheckApp: App {
     @StateObject var stravaHelper = StravaHelper(context: PersistenceController.shared.container.viewContext)
     
     // ViewModels as StateObjects at app level to maintain consistent state
-    @StateObject var bikesViewModel = BikesViewModel()
-    @StateObject var activitiesViewModel = ActivitiesViewModel()
-    @StateObject var serviceViewModel = ServiceViewModel()
-    @StateObject var loginViewModel = LoginViewModel(stravaHelper: StravaHelper.shared)
+    @StateObject var bikesViewModel: BikesViewModel
+    @StateObject var activitiesViewModel: ActivitiesViewModel
+    @StateObject var serviceViewModel: ServiceViewModel
+    @StateObject var loginViewModel: LoginViewModel
     
     let notificationDelegate = NotificationDelegate()
     
     init() {
+        // Initialize the ViewModels with their dependencies
+        let context = PersistenceController.shared.container.viewContext
+        
+        // Create a shared stravaHelper instance
+        let sharedStravaHelper = StravaHelper(context: context)
+        _stravaHelper = StateObject(wrappedValue: sharedStravaHelper)
+        
+        // Initialize ViewModels
+        _bikesViewModel = StateObject(wrappedValue: BikesViewModel(context: context))
+        _activitiesViewModel = StateObject(wrappedValue: ActivitiesViewModel(context: context))
+        _serviceViewModel = StateObject(wrappedValue: ServiceViewModel(context: context))
+        _loginViewModel = StateObject(wrappedValue: LoginViewModel(stravaHelper: sharedStravaHelper))
+        
         UNUserNotificationCenter.current().delegate = notificationDelegate
         setupBackgroundTasks()
     }
@@ -38,14 +51,14 @@ struct bikecheckApp: App {
             }
         }
         .backgroundTask(.appRefresh("com.bikecheck.checkServiceInterval")) { task in
-            if await stravaHelper.isSignedIn {
-                print("Background task checkServiceInterval executed.")
-                await stravaHelper.checkServiceIntervals()
-            }
+            print("Background task checkServiceInterval executed.")
+            stravaHelper.checkServiceIntervals()
+            task.setTaskCompleted(success: true)
         }
         .backgroundTask(.appRefresh("com.bikecheck.fetchActivities")) { task in
             print("Background task fetchActivities executed.")
-            await stravaHelper.fetchActivities { _ in }
+            stravaHelper.fetchActivities { _ in }
+            task.setTaskCompleted(success: true)
         }
     }
     

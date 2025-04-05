@@ -2,9 +2,9 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var stravaHelper: StravaHelper
-    @StateObject private var bikesViewModel = BikesViewModel()
-    @StateObject private var activitiesViewModel = ActivitiesViewModel()
-    @StateObject private var serviceViewModel = ServiceViewModel()
+    @EnvironmentObject var bikesViewModel: BikesViewModel
+    @EnvironmentObject var activitiesViewModel: ActivitiesViewModel
+    @EnvironmentObject var serviceViewModel: ServiceViewModel
     @State private var uiImage: UIImage? = nil
     @State private var selectedTab = 0
     

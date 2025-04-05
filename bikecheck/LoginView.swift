@@ -2,15 +2,11 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var stravaHelper: StravaHelper
-    @StateObject private var viewModel: LoginViewModel
-    
-    init() {
-        _viewModel = StateObject(wrappedValue: LoginViewModel(stravaHelper: StravaHelper.shared))
-    }
+    @EnvironmentObject var loginViewModel: LoginViewModel
     
     var body: some View {
         Group {
-            if viewModel.isLoading {
+            if loginViewModel.isLoading {
                 ProgressView()
                     .scaleEffect(2)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -29,7 +25,7 @@ struct LoginView: View {
                         .shadow(color: .gray, radius: 1, x: 5, y: 5)
                     
                     Button(action: {
-                        viewModel.authenticate { _ in }
+                        loginViewModel.authenticate { _ in }
                     }) {
                         Text("Sign in with Strava")
                             .frame(width: 280, height: 60)
@@ -40,7 +36,7 @@ struct LoginView: View {
                     
                     #if DEBUG
                     Button(action: {
-                        viewModel.insertTestData()
+                        loginViewModel.insertTestData()
                     }) {
                         Text("Insert Test Data")
                             .frame(width: 280, height: 60)
@@ -62,12 +58,12 @@ struct LoginView: View {
                         if success {
                             DispatchQueue.main.async {
                                 stravaHelper.isSignedIn = true
-                                viewModel.isLoading = false
+                                loginViewModel.isLoading = false
                             }
                         } else {
                             print("Error requesting tokens")
                             DispatchQueue.main.async {
-                                viewModel.isLoading = false
+                                loginViewModel.isLoading = false
                             }
                         }
                     }
