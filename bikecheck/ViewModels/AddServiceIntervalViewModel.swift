@@ -20,13 +20,13 @@ class AddServiceIntervalViewModel: ObservableObject {
     private var originalNotify = false
     private var originalSelectedBike: Bike?
     
-    private let context: NSManagedObjectContext
+    private let dataService = DataService.shared
+    private let context = PersistenceController.shared.container.viewContext
     
     var serviceInterval: ServiceInterval?
     
-    init(serviceInterval: ServiceInterval? = nil, context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
+    init(serviceInterval: ServiceInterval? = nil) {
         self.serviceInterval = serviceInterval
-        self.context = context
         loadBikes()
         if let serviceInterval = serviceInterval {
             loadServiceIntervalData(serviceInterval)
@@ -34,14 +34,9 @@ class AddServiceIntervalViewModel: ObservableObject {
     }
     
     func loadBikes() {
-        let fetchRequest: NSFetchRequest<Bike> = Bike.fetchRequest() as! NSFetchRequest<Bike>
-        do {
-            bikes = try context.fetch(fetchRequest)
-            if selectedBike == nil && !bikes.isEmpty {
-                selectedBike = bikes.first
-            }
-        } catch {
-            print("Failed to fetch bikes: \(error)")
+        bikes = dataService.fetchBikes()
+        if selectedBike == nil && !bikes.isEmpty {
+            selectedBike = bikes.first
         }
     }
     
@@ -99,7 +94,7 @@ class AddServiceIntervalViewModel: ObservableObject {
             interval.bike = selectedBike
         }
         
-        saveContext()
+        dataService.saveContext()
     }
     
     private func createNewInterval() {
@@ -112,7 +107,7 @@ class AddServiceIntervalViewModel: ObservableObject {
         newInterval.startTime = selectedBike.rideTime(context: context)
         newInterval.bike = selectedBike
         
-        saveContext()
+        dataService.saveContext()
     }
     
     func resetInterval() {
@@ -121,14 +116,14 @@ class AddServiceIntervalViewModel: ObservableObject {
         serviceInterval.startTime = selectedBike.rideTime(context: context)
         timeUntilServiceText = String(format: "%.2f", serviceInterval.intervalTime)
         
-        saveContext()
+        dataService.saveContext()
     }
     
     func deleteInterval() {
         guard let serviceInterval = serviceInterval else { return }
         
         context.delete(serviceInterval)
-        saveContext()
+        dataService.saveContext()
     }
     
     func checkForChangesBeforeDismiss(completion: @escaping (Bool) -> Void) {
@@ -139,14 +134,5 @@ class AddServiceIntervalViewModel: ObservableObject {
             completion(true) // Allow dismissal
         }
     }
-    
-    private func saveContext() {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                print("Failed to save context: \(error)")
-            }
-        }
-    }
 }
+

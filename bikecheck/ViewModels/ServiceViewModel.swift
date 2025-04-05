@@ -7,36 +7,22 @@ class ServiceViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: Error?
     
-    private let context: NSManagedObjectContext
+    private let dataService = DataService.shared
+    private let stravaService = StravaService.shared
+    private let context = PersistenceController.shared.container.viewContext
     
-    init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
-        self.context = context
+    init() {
         loadServiceIntervals()
     }
     
     func loadServiceIntervals() {
         isLoading = true
-        
-        let fetchRequest: NSFetchRequest<ServiceInterval> = ServiceInterval.fetchRequest() as! NSFetchRequest<ServiceInterval>
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \ServiceInterval.startTime, ascending: true)]
-        
-        do {
-            serviceIntervals = try context.fetch(fetchRequest)
-            isLoading = false
-        } catch {
-            print("Failed to fetch service intervals: \(error)")
-            self.error = error
-            isLoading = false
-        }
+        serviceIntervals = dataService.fetchServiceIntervals()
+        isLoading = false
     }
     
     func calculateTimeUntilService(for serviceInterval: ServiceInterval) -> Double {
-        let totalRideTime = serviceInterval.bike.rideTime(context: context)
-        let startTime = serviceInterval.startTime
-        let intervalTime = serviceInterval.intervalTime
-        
-        let currentIntervalTime = totalRideTime - startTime
-        return intervalTime - currentIntervalTime
+        return stravaService.calculateTimeUntilService(for: serviceInterval)
     }
     
     func getTimeUntilServiceText(for serviceInterval: ServiceInterval) -> String {
@@ -46,22 +32,13 @@ class ServiceViewModel: ObservableObject {
     
     func deleteInterval(serviceInterval: ServiceInterval) {
         context.delete(serviceInterval)
-        saveContext()
+        dataService.saveContext()
         loadServiceIntervals()
     }
     
     func resetInterval(serviceInterval: ServiceInterval) {
         serviceInterval.startTime = serviceInterval.bike.rideTime(context: context)
-        saveContext()
-    }
-    
-    private func saveContext() {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                print("Failed to save context: \(error)")
-            }
-        }
+        dataService.saveContext()
     }
 }
+

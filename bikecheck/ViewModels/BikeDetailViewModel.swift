@@ -1,16 +1,18 @@
 import Foundation
 import Combine
 import CoreData
+import SwiftUI
 
 class BikeDetailViewModel: ObservableObject {
     @Published var bike: Bike
     @Published var showingConfirmationDialog = false
+    @Published var showingServiceIntervalsCreatedAlert = false
     
-    private let context: NSManagedObjectContext
+    private let dataService = DataService.shared
+    private let context = PersistenceController.shared.container.viewContext
     
-    init(bike: Bike, context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
+    init(bike: Bike) {
         self.bike = bike
-        self.context = context
     }
     
     func getTotalRideTime() -> String {
@@ -26,43 +28,11 @@ class BikeDetailViewModel: ObservableObject {
     }
     
     func deleteBike() {
-        context.delete(bike)
-        saveContext()
+        dataService.deleteBike(bike)
     }
     
     func createDefaultServiceIntervals() {
-        let newServInt1 = ServiceInterval(context: context)
-        let newServInt2 = ServiceInterval(context: context)
-        let newServInt3 = ServiceInterval(context: context)
-        
-        newServInt2.intervalTime = 5
-        newServInt2.startTime = 0
-        newServInt2.bike = bike
-        newServInt2.part = "chain"
-        newServInt2.notify = true
-        
-        newServInt3.intervalTime = 10
-        newServInt3.startTime = 0
-        newServInt3.bike = bike
-        newServInt3.part = "Fork Lowers"
-        newServInt3.notify = true
-        
-        newServInt1.intervalTime = 15
-        newServInt1.startTime = 0
-        newServInt1.bike = bike
-        newServInt1.part = "Shock"
-        newServInt1.notify = true
-        
-        saveContext()
-    }
-    
-    private func saveContext() {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                print("Failed to save context: \(error)")
-            }
-        }
+        dataService.createDefaultServiceIntervals(for: bike)
+        showingServiceIntervalsCreatedAlert = true
     }
 }

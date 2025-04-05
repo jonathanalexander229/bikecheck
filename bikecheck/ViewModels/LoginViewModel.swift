@@ -4,21 +4,19 @@ import Combine
 class LoginViewModel: ObservableObject {
     @Published var isLoading = false
     
-    private let stravaHelper: StravaHelper
+    private let stravaService = StravaService.shared
     
-    init(stravaHelper: StravaHelper) {
-        self.stravaHelper = stravaHelper
-    }
+    init() {}
     
     func authenticate(completion: @escaping (Bool) -> Void) {
         isLoading = true
-        stravaHelper.authenticate { success in
+        stravaService.authenticate { success in
             self.isLoading = false
             completion(success)
         }
     }
     
     func insertTestData() {
-        stravaHelper.insertTestData()
+        stravaService.insertTestData()
     }
 }

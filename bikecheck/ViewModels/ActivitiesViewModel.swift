@@ -7,39 +7,22 @@ class ActivitiesViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: Error?
     
-    private let context: NSManagedObjectContext
+    private let dataService = DataService.shared
+    private let context = PersistenceController.shared.container.viewContext
     
-    init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
-        self.context = context
+    init() {
         loadActivities()
     }
     
     func loadActivities() {
         isLoading = true
-        
-        let fetchRequest: NSFetchRequest<Activity> = Activity.fetchRequest() as! NSFetchRequest<Activity>
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Activity.startDate, ascending: false)]
-        fetchRequest.predicate = NSPredicate(format: "type == %@", "Ride")
-        
-        do {
-            activities = try context.fetch(fetchRequest)
-            isLoading = false
-        } catch {
-            print("Failed to fetch activities: \(error)")
-            self.error = error
-            isLoading = false
-        }
+        activities = dataService.fetchActivities()
+        isLoading = false
     }
     
     func getBikeName(for activity: Activity) -> String {
-        let fetchRequest: NSFetchRequest<Bike> = Bike.fetchRequest() as! NSFetchRequest<Bike>
-        do {
-            let bikes = try context.fetch(fetchRequest)
-            return bikes.first(where: { $0.id == activity.gearId })?.name ?? "none"
-        } catch {
-            print("Failed to fetch bikes: \(error)")
-            return "none"
-        }
+        let bikes = dataService.fetchBikes()
+        return bikes.first(where: { $0.id == activity.gearId })?.name ?? "none"
     }
     
     func getFormattedDate(for activity: Activity) -> String {

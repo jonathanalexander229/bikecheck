@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var stravaHelper: StravaHelper
+    @EnvironmentObject var stravaService: StravaService
     @EnvironmentObject var loginViewModel: LoginViewModel
     
     var body: some View {
@@ -54,10 +54,10 @@ struct LoginView: View {
                 let authCode = components?.queryItems?.first(where: { $0.name == "code" })?.value
                 
                 if let code = authCode {
-                    stravaHelper.requestStravaTokens(with: code) { success in
+                    stravaService.requestStravaTokens(with: code) { success in
                         if success {
                             DispatchQueue.main.async {
-                                stravaHelper.isSignedIn = true
+                                stravaService.isSignedIn = true
                                 loginViewModel.isLoading = false
                             }
                         } else {

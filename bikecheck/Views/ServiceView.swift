@@ -2,10 +2,9 @@ import SwiftUI
 
 struct ServiceView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject var stravaHelper: StravaHelper
+    @EnvironmentObject var stravaService: StravaService
     @EnvironmentObject var viewModel: ServiceViewModel
     @State private var showingServiceIntervalView = false
-    @Binding var uiImage: UIImage?
     
     var body: some View {
         NavigationView {
@@ -69,14 +68,17 @@ struct ServiceView: View {
     
     var profileImage: some View {
         Group {
-            if let image = uiImage {
+            if let image = stravaService.profileImage {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 36, height: 36)
                     .clipShape(Circle())
             } else {
-                EmptyView()
+                Image(systemName: "person.crop.circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 36, height: 36)
             }
         }
     }
