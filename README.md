@@ -77,6 +77,66 @@ BikeCheck supports background tasks for:
 
 The app includes a demo mode for testing without Strava authentication, which creates sample bikes, activities, and service intervals.
 
+## Shared Objects and Singletons
+
+BikeCheck makes extensive use of the singleton pattern to ensure consistent state management throughout the app lifecycle:
+
+1. **StravaService.shared**:
+   - Central hub for all Strava API interactions
+   - Manages authentication state, athlete data, and API requests
+   - Publishes state changes via Combine's @Published properties
+   - Ensures only one instance handles network operations and maintains tokens
+
+2. **DataService.shared**:
+   - Provides standardized access to Core Data operations
+   - Centralizes data fetching and persistence logic
+   - Ensures consistency in how data is retrieved and manipulated
+
+3. **PersistenceController.shared**:
+   - Single source of truth for Core Data stack configuration
+   - Manages NSPersistentContainer and viewContext creation
+   - Handles merge policies and automatic merging of changes
+
+4. **NotificationService.shared**:
+   - Centralizes notification logic and permissions handling
+   - Manages scheduling of local notifications for service reminders
+   - Handles background task registration for service checks
+
+### Dependency Injection
+
+The app uses environment objects to inject these shared services down the view hierarchy:
+
+```swift
+// In bikecheckApp.swift
+@StateObject var stravaService = StravaService.shared
+// ...
+
+HomeView()
+    .environmentObject(stravaService)
+    .environmentObject(bikesViewModel)
+    // ...
+```
+
+This approach allows views to access shared objects via the @EnvironmentObject property wrapper:
+
+```swift
+// In a view file
+@EnvironmentObject var stravaService: StravaService
+```
+
+### Shared ViewModels
+
+ViewModels are initialized as @StateObject instances at the app level in bikecheckApp.swift to maintain consistent state across view transitions:
+
+```swift
+@StateObject var bikesViewModel = BikesViewModel()
+@StateObject var activitiesViewModel = ActivitiesViewModel()
+@StateObject var serviceViewModel = ServiceViewModel()
+@StateObject var loginViewModel = LoginViewModel()
+```
+
+This ensures that data doesn't need to be reloaded when navigating between tabs and helps preserve application state.
+
 ## Dependencies
 
 - **Alamofire**: HTTP networking library for API requests
