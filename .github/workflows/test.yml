@@ -1,0 +1,53 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Set up Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+      
+      - name: Show Swift version
+        run: swift --version
+      
+      - name: Run tests
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project bikecheck.xcodeproj \
+            -scheme bikecheck \
+            -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+            -testPlan UnitTests \
+            | xcpretty
+      
+      - name: Check test coverage
+        run: |
+          xcodebuild test \
+            -project bikecheck.xcodeproj \
+            -scheme bikecheck \
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            -testPlan UnitTests \
+            -enableCodeCoverage YES \
+            -resultBundlePath TestResults
+          
+          xcrun xcresulttool get --format json --path TestResults.xcresult > coverage.json
+          
+          echo "Test Coverage Summary:"
+          grep -A 10 "lineCoverage" coverage.json | head -10
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: TestResults.xcresult
