@@ -27,7 +27,6 @@ jobs:
             -project bikecheck.xcodeproj \
             -scheme bikecheck \
             -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-            -testPlan bikecheckTests \
             | xcpretty
       
       - name: Check test coverage
@@ -36,7 +35,6 @@ jobs:
             -project bikecheck.xcodeproj \
             -scheme bikecheck \
             -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-            -testPlan bikecheckTests \
             -enableCodeCoverage YES \
             -resultBundlePath TestResults
           
