@@ -10,11 +10,12 @@
 		A365B0012B44D34900FF712E /* bikecheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0002B44D34900FF712E /* bikecheckApp.swift */; };
 		A365B0082B44D34A00FF712E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A365B0072B44D34A00FF712E /* Preview Assets.xcassets */; };
 		A365B00D2B44D34A00FF712E /* bikecheck.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A365B00B2B44D34A00FF712E /* bikecheck.xcdatamodeld */; };
-		A365B0172B44D34A00FF712E /* bikecheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0162B44D34A00FF712E /* bikecheckTests.swift */; };
-		A365B0212B44D34A00FF712E /* bikecheckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0202B44D34A00FF712E /* bikecheckUITests.swift */; };
-		A365B0232B44D34A00FF712E /* bikecheckUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0222B44D34A00FF712E /* bikecheckUITestsLaunchTests.swift */; };
 		A365B0312B44D37300FF712E /* TokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0302B44D37300FF712E /* TokenInfo.swift */; };
 		A365B03A2B44D41000FF712E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A365B0392B44D41000FF712E /* Alamofire */; };
+		A38B307A2DAC5B0000F82FA3 /* bikecheckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38B30792DAC5B0000F82FA3 /* bikecheckUITests.swift */; };
+		A38B307E2DAC5B2000F82FA3 /* PersistenceControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38B307D2DAC5B2000F82FA3 /* PersistenceControllerTests.swift */; };
+		A38B307F2DAC5B2000F82FA3 /* DataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38B307B2DAC5B2000F82FA3 /* DataServiceTests.swift */; };
+		A38B30802DAC5B2000F82FA3 /* MockPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38B307C2DAC5B2000F82FA3 /* MockPersistenceController.swift */; };
 		A39ADD9E2B54A8CD0038AC55 /* ServiceInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39ADD9D2B54A8CD0038AC55 /* ServiceInterval.swift */; };
 		A3AB08402DA1EE1300935BB8 /* ServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB08362DA1EE1300935BB8 /* ServiceViewModel.swift */; };
 		A3AB08412DA1EE1300935BB8 /* BikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB083B2DA1EE1300935BB8 /* BikesView.swift */; };
@@ -33,7 +34,6 @@
 		A3AB084E2DA1EE1300935BB8 /* ActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB08382DA1EE1300935BB8 /* ActivitiesView.swift */; };
 		A3AB084F2DA1EE1300935BB8 /* ServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB083E2DA1EE1300935BB8 /* ServiceView.swift */; };
 		A3AB08502DA1EE1300935BB8 /* BikesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB08342DA1EE1300935BB8 /* BikesViewModel.swift */; };
-		A3AB08512DA1EE1300935BB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3AB082A2DA1EE1300935BB8 /* Assets.xcassets */; };
 		A3C2EC792C237B7500BA2BC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A365B0042B44D34A00FF712E /* Assets.xcassets */; };
 		A3E742952B46FDEE00C5191F /* Athlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E742922B46FDEE00C5191F /* Athlete.swift */; };
 		A3E742962B46FDEE00C5191F /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E742932B46FDEE00C5191F /* Activity.swift */; };
@@ -64,14 +64,14 @@
 		A365B0072B44D34A00FF712E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A365B00C2B44D34A00FF712E /* bikecheck.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = bikecheck.xcdatamodel; sourceTree = "<group>"; };
 		A365B0122B44D34A00FF712E /* bikecheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bikecheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A365B0162B44D34A00FF712E /* bikecheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckTests.swift; sourceTree = "<group>"; };
 		A365B01C2B44D34A00FF712E /* bikecheckUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bikecheckUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A365B0202B44D34A00FF712E /* bikecheckUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckUITests.swift; sourceTree = "<group>"; };
-		A365B0222B44D34A00FF712E /* bikecheckUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A365B0302B44D37300FF712E /* TokenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
 		A365B03B2B44D93700FF712E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A38B30792DAC5B0000F82FA3 /* bikecheckUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckUITests.swift; sourceTree = "<group>"; };
+		A38B307B2DAC5B2000F82FA3 /* DataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServiceTests.swift; sourceTree = "<group>"; };
+		A38B307C2DAC5B2000F82FA3 /* MockPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPersistenceController.swift; sourceTree = "<group>"; };
+		A38B307D2DAC5B2000F82FA3 /* PersistenceControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceControllerTests.swift; sourceTree = "<group>"; };
 		A39ADD9D2B54A8CD0038AC55 /* ServiceInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInterval.swift; sourceTree = "<group>"; };
-		A3AB082A2DA1EE1300935BB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A3AB082C2DA1EE1300935BB8 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		A3AB082D2DA1EE1300935BB8 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		A3AB082E2DA1EE1300935BB8 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
@@ -144,19 +144,13 @@
 			isa = PBXGroup;
 			children = (
 				A365B03B2B44D93700FF712E /* Info.plist */,
-				A365B02F2B44D36100FF712E /* Models */,
 				A365B0002B44D34900FF712E /* bikecheckApp.swift */,
-				A3AB082B2DA1EE1300935BB8 /* Resources */,
 				A3AB08302DA1EE1300935BB8 /* Services */,
 				A3AB08372DA1EE1300935BB8 /* ViewModels */,
 				A3AB083F2DA1EE1300935BB8 /* Views */,
-				A365B0042B44D34A00FF712E /* Assets.xcassets */,
 				A365B00B2B44D34A00FF712E /* bikecheck.xcdatamodeld */,
 				A365B0042B44D34A00FF712E /* Assets.xcassets */,
 				A365B02F2B44D36100FF712E /* Models */,
-				A3AB07EB2DA1DA3C00935BB8 /* Views */,
-				A3AB07E32DA1CAAC00935BB8 /* ViewModels */,
-				A3AB07EF2DA1DF0100935BB8 /* Services */,
 				A365B0062B44D34A00FF712E /* Preview Content */,
 			);
 			path = bikecheck;
@@ -173,7 +167,9 @@
 		A365B0152B44D34A00FF712E /* bikecheckTests */ = {
 			isa = PBXGroup;
 			children = (
-				A365B0162B44D34A00FF712E /* bikecheckTests.swift */,
+				A38B307B2DAC5B2000F82FA3 /* DataServiceTests.swift */,
+				A38B307C2DAC5B2000F82FA3 /* MockPersistenceController.swift */,
+				A38B307D2DAC5B2000F82FA3 /* PersistenceControllerTests.swift */,
 			);
 			path = bikecheckTests;
 			sourceTree = "<group>";
@@ -181,8 +177,7 @@
 		A365B01F2B44D34A00FF712E /* bikecheckUITests */ = {
 			isa = PBXGroup;
 			children = (
-				A365B0202B44D34A00FF712E /* bikecheckUITests.swift */,
-				A365B0222B44D34A00FF712E /* bikecheckUITestsLaunchTests.swift */,
+				A38B30792DAC5B0000F82FA3 /* bikecheckUITests.swift */,
 			);
 			path = bikecheckUITests;
 			sourceTree = "<group>";
@@ -197,14 +192,6 @@
 				A39ADD9D2B54A8CD0038AC55 /* ServiceInterval.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		A3AB082B2DA1EE1300935BB8 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A3AB082A2DA1EE1300935BB8 /* Assets.xcassets */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		A3AB08302DA1EE1300935BB8 /* Services */ = {
@@ -356,7 +343,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3C2EC792C237B7500BA2BC8 /* Assets.xcassets in Resources */,
-				A3AB08512DA1EE1300935BB8 /* Assets.xcassets in Resources */,
 				A365B0082B44D34A00FF712E /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,7 +399,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A365B0172B44D34A00FF712E /* bikecheckTests.swift in Sources */,
+				A38B307E2DAC5B2000F82FA3 /* PersistenceControllerTests.swift in Sources */,
+				A38B307F2DAC5B2000F82FA3 /* DataServiceTests.swift in Sources */,
+				A38B30802DAC5B2000F82FA3 /* MockPersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,8 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A365B0232B44D34A00FF712E /* bikecheckUITestsLaunchTests.swift in Sources */,
-				A365B0212B44D34A00FF712E /* bikecheckUITests.swift in Sources */,
+				A38B307A2DAC5B0000F82FA3 /* bikecheckUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

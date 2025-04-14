@@ -1,0 +1,26 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Set up Xcode
+        run: xcode-select -p
+      
+      - name: Run tests
+        run: |
+          xcodebuild test \
+            -project bikecheck.xcodeproj \
+            -scheme bikecheck \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest'
