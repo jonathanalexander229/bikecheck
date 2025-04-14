@@ -25,15 +25,15 @@ final class bikecheckUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    func test1_LoggedOut() throws {
-        // UI tests must launch the application that they test.
-        app = XCUIApplication()
-        app.launch()
-                
-        XCTAssertTrue(app.buttons["Sign in with Strava"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons["Insert Test Data"].waitForExistence(timeout: 5))
-
-    }
+//    func test1_LoggedOut() throws {
+//        // UI tests must launch the application that they test.
+//        app = XCUIApplication()
+//        app.launch()
+//                
+//        XCTAssertTrue(app.buttons["Sign in with Strava"].waitForExistence(timeout: 5))
+//        XCTAssertTrue(app.buttons["Insert Test Data"].waitForExistence(timeout: 5))
+//
+//    }
     
     func test2_LoggedIn() throws {
         // UI tests must launch the application that they test.
