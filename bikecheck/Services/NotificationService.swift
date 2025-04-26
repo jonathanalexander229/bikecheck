@@ -1,10 +1,12 @@
 import UserNotifications
 import BackgroundTasks
+import os.log
 
 class NotificationService: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationService()
     
     let center = UNUserNotificationCenter.current()
+    private let logger = Logger(subsystem: "com.bikecheck", category: "Notifications")
     
     override init() {
         super.init()
@@ -39,14 +41,8 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
     
     func scheduleBackgroundTask() {
         print("scheduling serviceInt Notification background task")
-        let request = BGAppRefreshTaskRequest(identifier: "checkServiceInterval")
-        request.earliestBeginDate = Calendar.current.date(byAdding: .minute, value: 6, to: Date())
-        
-        do {
-            try BGTaskScheduler.shared.submit(request)
-        } catch {
-            print("Could not schedule app refresh: \(error)")
-        }
+        // Delegate scheduling to the BackgroundTaskManager
+        BackgroundTaskManager.shared.scheduleBackgroundTask(identifier: .checkServiceInterval)
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
