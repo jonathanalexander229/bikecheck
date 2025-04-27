@@ -45,6 +45,7 @@ struct bikecheckApp: App {
         Task {
             if await stravaService.isSignedIn ?? false {
                 logger.info("Background task checkServiceInterval executed")
+                // Call with await since the method is now async
                 await stravaService.checkServiceIntervals()
                 logger.info("Service interval check completed")
             } else {

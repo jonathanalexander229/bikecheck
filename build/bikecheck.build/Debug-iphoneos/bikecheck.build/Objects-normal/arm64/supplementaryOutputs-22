@@ -1,0 +1,18 @@
+"/Users/clutchcoder/working/bikecheck/bikecheck/Views/ServiceView.swift":
+  diagnostics: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/ServiceView.dia"
+  dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/ServiceView.d"
+  const-values: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/ServiceView.swiftconstvalues"
+  swift-dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/ServiceView.swiftdeps"
+  object: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/ServiceView.o"
+"/Users/clutchcoder/working/bikecheck/bikecheck/ViewModels/BikesViewModel.swift":
+  dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/BikesViewModel.d"
+  const-values: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/BikesViewModel.swiftconstvalues"
+  swift-dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/BikesViewModel.swiftdeps"
+  object: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/BikesViewModel.o"
+  diagnostics: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/BikesViewModel.dia"
+"/Users/clutchcoder/working/bikecheck/bikecheck/Views/ActivitiesView.swift":
+  const-values: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/ActivitiesView.swiftconstvalues"
+  object: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/ActivitiesView.o"
+  swift-dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/ActivitiesView.swiftdeps"
+  diagnostics: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/ActivitiesView.dia"
+  dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/ActivitiesView.d"

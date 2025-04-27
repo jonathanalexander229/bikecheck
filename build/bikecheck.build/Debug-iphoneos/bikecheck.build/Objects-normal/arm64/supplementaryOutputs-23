@@ -1,0 +1,18 @@
+"/Users/clutchcoder/working/bikecheck/bikecheck/bikecheckApp.swift":
+  swift-dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/bikecheckApp.swiftdeps"
+  dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/bikecheckApp.d"
+  object: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/bikecheckApp.o"
+  diagnostics: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/bikecheckApp.dia"
+  const-values: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/bikecheckApp.swiftconstvalues"
+"/Users/clutchcoder/working/bikecheck/bikecheck/Models/TokenInfo.swift":
+  dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/TokenInfo.d"
+  swift-dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/TokenInfo.swiftdeps"
+  diagnostics: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/TokenInfo.dia"
+  const-values: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/TokenInfo.swiftconstvalues"
+  object: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/TokenInfo.o"
+"/Users/clutchcoder/working/bikecheck/bikecheck/Models/Bike.swift":
+  object: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/Bike.o"
+  diagnostics: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/Bike.dia"
+  swift-dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/Bike.swiftdeps"
+  const-values: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/Bike.swiftconstvalues"
+  dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/Bike.d"

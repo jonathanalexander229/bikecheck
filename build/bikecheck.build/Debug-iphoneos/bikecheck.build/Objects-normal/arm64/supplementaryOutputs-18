@@ -1,0 +1,18 @@
+"/Users/clutchcoder/working/bikecheck/bikecheck/Services/PersistenceController.swift":
+  swift-dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/PersistenceController.swiftdeps"
+  object: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/PersistenceController.o"
+  diagnostics: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/PersistenceController.dia"
+  dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/PersistenceController.d"
+  const-values: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/PersistenceController.swiftconstvalues"
+"/Users/clutchcoder/working/bikecheck/bikecheck/Services/BackgroundTaskManager.swift":
+  swift-dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/BackgroundTaskManager.swiftdeps"
+  diagnostics: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/BackgroundTaskManager.dia"
+  const-values: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/BackgroundTaskManager.swiftconstvalues"
+  object: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/BackgroundTaskManager.o"
+  dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/BackgroundTaskManager.d"
+"/Users/clutchcoder/working/bikecheck/bikecheck/ViewModels/AddServiceIntervalViewModel.swift":
+  const-values: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/AddServiceIntervalViewModel.swiftconstvalues"
+  dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/AddServiceIntervalViewModel.d"
+  object: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/AddServiceIntervalViewModel.o"
+  swift-dependencies: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/AddServiceIntervalViewModel.swiftdeps"
+  diagnostics: "/Users/clutchcoder/working/bikecheck/build/bikecheck.build/Debug-iphoneos/bikecheck.build/Objects-normal/arm64/AddServiceIntervalViewModel.dia"

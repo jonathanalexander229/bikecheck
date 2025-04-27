@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>colors</key>
+	<array/>
+	<key>images</key>
+	<array>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/clutchcoder/working/bikecheck/bikecheck/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameBikeCheckLogo</string>
+			<key>relativePath</key>
+			<string>./BikeCheckLogo.imageset</string>
+			<key>swiftSymbol</key>
+			<string>bikeCheckLogo</string>
+		</dict>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/clutchcoder/working/bikecheck/bikecheck/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameImage</string>
+			<key>relativePath</key>
+			<string>./Image.imageset</string>
+			<key>swiftSymbol</key>
+			<string>image</string>
+		</dict>
+	</array>
+	<key>symbols</key>
+	<array/>
+</dict>
+</plist>

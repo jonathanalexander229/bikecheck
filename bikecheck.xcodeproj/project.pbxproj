@@ -12,6 +12,7 @@
 		A365B00D2B44D34A00FF712E /* bikecheck.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A365B00B2B44D34A00FF712E /* bikecheck.xcdatamodeld */; };
 		A365B0312B44D37300FF712E /* TokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0302B44D37300FF712E /* TokenInfo.swift */; };
 		A365B03A2B44D41000FF712E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A365B0392B44D41000FF712E /* Alamofire */; };
+		A383E0FA2DBD7FCA00B662A4 /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A383E0F92DBD7FCA00B662A4 /* BackgroundTaskManager.swift */; };
 		A38B307A2DAC5B0000F82FA3 /* bikecheckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38B30792DAC5B0000F82FA3 /* bikecheckUITests.swift */; };
 		A38B307E2DAC5B2000F82FA3 /* PersistenceControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38B307D2DAC5B2000F82FA3 /* PersistenceControllerTests.swift */; };
 		A38B307F2DAC5B2000F82FA3 /* DataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38B307B2DAC5B2000F82FA3 /* DataServiceTests.swift */; };
@@ -67,6 +68,7 @@
 		A365B01C2B44D34A00FF712E /* bikecheckUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bikecheckUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A365B0302B44D37300FF712E /* TokenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
 		A365B03B2B44D93700FF712E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A383E0F92DBD7FCA00B662A4 /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
 		A38B30792DAC5B0000F82FA3 /* bikecheckUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckUITests.swift; sourceTree = "<group>"; };
 		A38B307B2DAC5B2000F82FA3 /* DataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServiceTests.swift; sourceTree = "<group>"; };
 		A38B307C2DAC5B2000F82FA3 /* MockPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPersistenceController.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 		A3AB08302DA1EE1300935BB8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A383E0F92DBD7FCA00B662A4 /* BackgroundTaskManager.swift */,
 				A3AB082C2DA1EE1300935BB8 /* DataService.swift */,
 				A3AB082D2DA1EE1300935BB8 /* NotificationService.swift */,
 				A3AB082E2DA1EE1300935BB8 /* PersistenceController.swift */,
@@ -373,6 +376,7 @@
 				A3AB08412DA1EE1300935BB8 /* BikesView.swift in Sources */,
 				A3AB08422DA1EE1300935BB8 /* LoginView.swift in Sources */,
 				A3AB08432DA1EE1300935BB8 /* PersistenceController.swift in Sources */,
+				A383E0FA2DBD7FCA00B662A4 /* BackgroundTaskManager.swift in Sources */,
 				A3AB08442DA1EE1300935BB8 /* AddServiceIntervalViewModel.swift in Sources */,
 				A3AB08452DA1EE1300935BB8 /* NotificationService.swift in Sources */,
 				A3AB08462DA1EE1300935BB8 /* AddServiceIntervalView.swift in Sources */,
