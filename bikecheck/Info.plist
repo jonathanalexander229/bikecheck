@@ -7,12 +7,6 @@
 		<string>checkServiceInterval</string>
 		<string>fetchActivities</string>
 	</array>
-	<key>CFBundleDisplayName</key>
-	<string>BikeCheck</string>
-	<key>CFBundleIconName</key>
-	<string>AppIcon</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

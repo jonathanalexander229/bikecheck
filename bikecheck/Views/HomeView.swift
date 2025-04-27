@@ -44,31 +44,15 @@ struct HomeView: View {
     }
 
     private func fetchStravaData() {
-        // Use Task to call the async method - with sequential operations
-        Task {
-            // First, check service intervals
-            await stravaService.checkServiceIntervals()
-            
-            // Then call athlete info, and wait for it to complete
-            await withCheckedContinuation { continuation in
-                stravaService.getAthlete { _ in
-                    continuation.resume()
-                }
-            }
-            
-            // Then call activities, and wait for it to complete
-            await withCheckedContinuation { continuation in
-                stravaService.fetchActivities { _ in
-                    continuation.resume()
-                }
-            }
-            
-            // Finally refresh ViewModels on main thread after all API calls are done
-            await MainActor.run {
-                bikesViewModel.loadBikes()
-                activitiesViewModel.loadActivities()
-                serviceViewModel.loadServiceIntervals()
-            }
+        stravaService.checkServiceIntervals()
+        stravaService.getAthlete { _ in }
+        stravaService.fetchActivities { _ in }
+        
+        // Refresh ViewModels after data fetch
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            bikesViewModel.loadBikes()
+            activitiesViewModel.loadActivities()
+            serviceViewModel.loadServiceIntervals()
         }
     }
 

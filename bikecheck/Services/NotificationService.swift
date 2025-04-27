@@ -22,29 +22,17 @@ class NotificationService: NSObject, UNUserNotificationCenterDelegate {
     func sendNotification(for interval: ServiceInterval) {
         if interval.notify {
             print("Sending notification")
-            
-            // Create notification content
             let content = UNMutableNotificationContent()
             content.title = "\(interval.bike.name) Service Reminder"
             content.body = "It's time to service your \(interval.part)."
             content.sound = UNNotificationSound.default
             
-            // Explicitly set the app icon badge
-            content.badge = 1
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
             
-            // Create unique identifier for this notification
-            let identifier = "bikecheck-service-\(interval.objectID.uriRepresentation().absoluteString)"
-            
-            // Create the request with no delay
-            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
-            
-            // Add the notification request
             center.add(request) { (error) in
                 if let error = error {
-                    self.logger.error("Error adding notification request: \(error.localizedDescription)")
                     print("Error adding notification request: \(error.localizedDescription)")
                 } else {
-                    self.logger.info("Notification request added successfully")
                     print("Notification request added successfully")
                 }
             }
