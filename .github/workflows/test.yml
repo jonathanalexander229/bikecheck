@@ -17,20 +17,21 @@ jobs:
       
       - name: Set up Xcode
         run: xcode-select -p
-
+      
       - name: Install dependencies
         run: |
           gem install xcpretty
           gem install xcpretty-json-formatter
       
-      - name: Run tests
+      - name: Run tests and generate reports
         run: |
-          xcodebuild test \
+          mkdir -p test-results
+          set -o pipefail && xcodebuild test \
             -project bikecheck.xcodeproj \
             -scheme bikecheck \
             -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest' \
             | xcpretty --report junit --output test-results/junit.xml
-
+      
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
