@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A30220892DBDD56900C3C195 /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30220882DBDD56900C3C195 /* BackgroundTaskManager.swift */; };
 		A365B0012B44D34900FF712E /* bikecheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0002B44D34900FF712E /* bikecheckApp.swift */; };
 		A365B0082B44D34A00FF712E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A365B0072B44D34A00FF712E /* Preview Assets.xcassets */; };
 		A365B00D2B44D34A00FF712E /* bikecheck.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A365B00B2B44D34A00FF712E /* bikecheck.xcdatamodeld */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A30220882DBDD56900C3C195 /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
 		A365AFFD2B44D34900FF712E /* bikecheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bikecheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A365B0002B44D34900FF712E /* bikecheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckApp.swift; sourceTree = "<group>"; };
 		A365B0042B44D34A00FF712E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 		A3AB08302DA1EE1300935BB8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A30220882DBDD56900C3C195 /* BackgroundTaskManager.swift */,
 				A3AB082C2DA1EE1300935BB8 /* DataService.swift */,
 				A3AB082D2DA1EE1300935BB8 /* NotificationService.swift */,
 				A3AB082E2DA1EE1300935BB8 /* PersistenceController.swift */,
@@ -373,6 +376,7 @@
 				A3AB08412DA1EE1300935BB8 /* BikesView.swift in Sources */,
 				A3AB08422DA1EE1300935BB8 /* LoginView.swift in Sources */,
 				A3AB08432DA1EE1300935BB8 /* PersistenceController.swift in Sources */,
+				A30220892DBDD56900C3C195 /* BackgroundTaskManager.swift in Sources */,
 				A3AB08442DA1EE1300935BB8 /* AddServiceIntervalViewModel.swift in Sources */,
 				A3AB08452DA1EE1300935BB8 /* NotificationService.swift in Sources */,
 				A3AB08462DA1EE1300935BB8 /* AddServiceIntervalView.swift in Sources */,
