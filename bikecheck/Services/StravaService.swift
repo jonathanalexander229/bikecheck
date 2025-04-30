@@ -406,13 +406,22 @@ class StravaService: ObservableObject {
         }
     }
     
-    func checkServiceIntervals() {
-        let serviceIntervals = fetchServiceIntervals()
+    func checkServiceIntervals() async {
+        // First create a completely separate copy of service intervals 
+        let serviceIntervals = await MainActor.run { self.fetchServiceIntervals() }
         
-        serviceIntervals.forEach { interval in
-            let timeUntilService = calculateTimeUntilService(for: interval)
+        // Clone intervals into a simple array to avoid NSSet mutation issues
+        let intervalsCopy = await MainActor.run { Array(serviceIntervals) }
+        
+        // Process each interval - split into two steps to avoid Core Data conflicts
+        for interval in intervalsCopy {
+            let timeUntilService = await MainActor.run { self.calculateTimeUntilService(for: interval) }
+            
             if timeUntilService <= 0 && interval.notify {
-                NotificationService.shared.sendNotification(for: interval)
+                // Send notification on the main thread
+                await MainActor.run {
+                    NotificationService.shared.sendNotification(for: interval)
+                }
             }
         }
     }
