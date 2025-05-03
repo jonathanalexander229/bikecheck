@@ -1,3 +1,20 @@
+# About
+
+BikeCheck is your personal bike maintenance assistant. Connect with Strava to sync your bikes and track your riding hours. Get timely service reminders for your ALL of your bikes and components.
+KEY FEATURES:
+
+Seamless Strava integration auto imports your bikes and activities
+Customizable service intervals for different bike components
+Smart notifications when maintenance is due
+Track multiple bikes with individual service schedules
+Create default service templates for quick setup
+Never miss critical maintenance again. BikeCheck helps you extend the life of your components and ensures your bike is always ready to ride. Perfect for mountain bikers, road cyclists, and anyone who wants to keep their bike running smoothly.
+Download BikeCheck today and give your bike the care it deserves!
+
+# App Privacy
+
+BikeCheck is built with your privacy as a priority. The app only collects Strava data that you explicitly authorize during sign-in, and all information remains securely stored on your device—we never upload or sync your data to external servers. The Strava information we store locally includes: athlete profile details (name and profile picture), bike information (names, IDs, and distances), activity data (rides, moving times, distances, dates, and average speeds), and authentication tokens for maintaining your Strava connection. Your cycling habits and maintenance schedules are your business alone.
+
 # BikeCheck Application Architecture
 
 BikeCheck is an iOS application designed to help cyclists track and manage bicycle maintenance schedules based on ride time. The app integrates with Strava to fetch ride data and calculates when maintenance should be performed on different bike components.
