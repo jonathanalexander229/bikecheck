@@ -15,6 +15,45 @@ Download BikeCheck today and give your bike the care it deserves!
 
 BikeCheck is built with your privacy as a priority. The app only collects Strava data that you explicitly authorize during sign-in, and all information remains securely stored on your device—we never upload or sync your data to external servers. The Strava information we store locally includes: athlete profile details (name and profile picture), bike information (names, IDs, and distances), activity data (rides, moving times, distances, dates, and average speeds), and authentication tokens for maintaining your Strava connection. Your cycling habits and maintenance schedules are your business alone.
 
+# BikeCheck User Guide
+
+## Getting Started
+
+When you first open BikeCheck, you'll be greeted with a login screen featuring the BikeCheck logo. Tap "Sign in with Strava" to connect your Strava account. After authorizing the app, BikeCheck will automatically import your bikes and riding activities.
+
+## Main Interface
+
+BikeCheck features three main tabs at the bottom of your screen:
+
+1. **Service Intervals** - This is your maintenance dashboard. You'll see a list of all your service intervals sorted by urgency, displaying the bike name, component to be serviced, and time remaining until service is due. Components that are overdue will be highlighted in red.
+
+2. **Bikes** - View all your imported Strava bikes. Each bike shows its name and total ride time. Tap on any bike to see detailed information including total mileage, ride hours, and activity count.
+
+3. **Activities** - Browse your recent rides imported from Strava. Each activity displays the name, duration, distance, associated bike, and date.
+
+## Managing Service Intervals
+
+### Creating Service Intervals
+
+You can add new service intervals in two ways:
+- Tap the "+" button in the Service Intervals tab to create a custom interval
+- From a bike's detail page, tap "Create Default Service Intervals" to quickly generate common maintenance schedules
+
+When creating a service interval, you'll select a bike, specify the part to be maintained (e.g., "chain"), set the interval time in hours, and choose whether to receive notifications.
+
+### Editing and Resetting
+
+When viewing a service interval, you can:
+- Edit any detail by changing the values
+- Reset the interval to start the countdown fresh after performing maintenance
+- Delete the interval when no longer needed
+
+## Notifications
+
+BikeCheck will send you notifications when components are due for service, ensuring you never miss critical maintenance. All notifications are managed locally on your device.
+
+Enjoy keeping your bikes in peak condition with BikeCheck!
+
 # BikeCheck Application Architecture
 
 BikeCheck is an iOS application designed to help cyclists track and manage bicycle maintenance schedules based on ride time. The app integrates with Strava to fetch ride data and calculates when maintenance should be performed on different bike components.
