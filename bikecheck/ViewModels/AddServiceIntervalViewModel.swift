@@ -43,7 +43,7 @@ class AddServiceIntervalViewModel: ObservableObject {
     private func loadServiceIntervalData(_ serviceInterval: ServiceInterval) {
         part = serviceInterval.part
         startTime = serviceInterval.startTime
-        intervalTime = String(serviceInterval.intervalTime)
+        intervalTime = String(format: "%.1f", serviceInterval.intervalTime)
         notify = serviceInterval.notify
         selectedBike = serviceInterval.bike
         
@@ -74,7 +74,7 @@ class AddServiceIntervalViewModel: ObservableObject {
         let currentIntervalTime = totalRideTime - serviceInterval.startTime
         let timeUntilService = serviceInterval.intervalTime - currentIntervalTime
         
-        timeUntilServiceText = String(format: "%.2f", timeUntilService)
+        timeUntilServiceText = String(format: "%.1f", timeUntilService)
     }
     
     func saveServiceInterval() {
@@ -114,7 +114,7 @@ class AddServiceIntervalViewModel: ObservableObject {
         guard let serviceInterval = serviceInterval, let selectedBike = selectedBike else { return }
         
         serviceInterval.startTime = selectedBike.rideTime(context: context)
-        timeUntilServiceText = String(format: "%.2f", serviceInterval.intervalTime)
+        timeUntilServiceText = String(format: "%.1f", serviceInterval.intervalTime)
         
         dataService.saveContext()
     }
