@@ -8,9 +8,9 @@
 import XCTest
 @testable import bikecheck
 
-final class bikecheckUITests: XCTestCase {
+final class bikecheckUITests: BikeCheckUITestCase {
     
-    var app: XCUIApplication!
+    // app is inherited from BikeCheckUITestCase
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -37,24 +37,19 @@ final class bikecheckUITests: XCTestCase {
     
     func test2_LoggedIn() throws {
         // UI tests must launch the application that they test.
-        app = XCUIApplication()
-        app.launch()
-        
-        app.buttons["Insert Test Data"].tap()
+        // Test data already loaded by base class
         
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Service Intervals"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Bikes"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Activities"].waitForExistence(timeout: 5))
-        //sleep(5)
-        app.tabBars["Tab Bar"].buttons["Service Intervals"].tap()
-        XCTAssertTrue(app.navigationBars["Service Intervals"].waitForExistence(timeout: 5))
-        //sleep(5)
-        app.tabBars["Tab Bar"].buttons["Bikes"].tap()
-        XCTAssertTrue(app.navigationBars["Bikes"].waitForExistence(timeout: 5))
-        //sleep(5)
-        app.tabBars["Tab Bar"].buttons["Activities"].tap()
-        XCTAssertTrue(app.navigationBars["Activities"].waitForExistence(timeout: 5))
-        //sleep(5)
+        navigateToTab("Service Intervals")
+        XCTAssertTrue(verifyNavigationBar("Service Intervals"))
+        
+        navigateToTab("Bikes")
+        XCTAssertTrue(verifyNavigationBar("Bikes"))
+        
+        navigateToTab("Activities")
+        XCTAssertTrue(verifyNavigationBar("Activities"))
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 }

@@ -98,6 +98,12 @@ struct bikecheckApp: App {
                         .environmentObject(loginViewModel)
                 }
             }
+            .onAppear {
+                // Check for UI testing mode and auto-load test data
+                if ProcessInfo.processInfo.arguments.contains("UI_TESTING") {
+                    stravaService.insertTestData()
+                }
+            }
         }
 //        .backgroundTask(.appRefresh("checkServiceInterval")) { _ in
 //            // Check if the user is signed in before proceeding with the background task
