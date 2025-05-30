@@ -253,6 +253,90 @@ This ensures that data doesn't need to be reloaded when navigating between tabs 
 3. **Notifications**: Sends reminders when service is due
 4. **Component-specific Tracking**: Manages maintenance for different bike components separately
 
+# Testing Framework
+
+BikeCheck includes comprehensive unit and UI testing infrastructure to ensure code quality and reliability.
+
+## Unit Tests (`bikecheckTests`)
+
+Unit tests use dependency injection with mock objects to test business logic in isolation. The mock infrastructure provides an in-memory Core Data stack and test data creation utilities. Tests inject mock dependencies into services to verify functionality without affecting real app data.
+
+**Key Components:**
+- MockPersistenceController with in-memory Core Data
+- PersistenceControllerProtocol for dependency injection
+- Automated test data creation methods
+- Isolated test environment
+
+## UI Tests (`bikecheckUITests`)
+
+UI tests use automatic test data injection without manual UI interaction. When launched with the `UI_TESTING` argument, the app automatically loads test data, eliminating the need for button tapping or manual setup.
+
+**Key Components:**
+- BikeCheckUITestCase base class for shared setup
+- Automatic test data loading via launch arguments
+- Helper methods for common UI operations
+- No manual UI interaction required for test data
+
+## Test Architecture Diagram
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Main App Target                       │
+│  ┌─────────────────┐    ┌─────────────────┐            │
+│  │PersistenceController │   StravaService │            │
+│  │     (Real)       │    │     (Real)      │            │
+│  └─────────────────┘    └─────────────────┘            │
+└─────────────────────────────────────────────────────────┘
+                               │
+           ┌───────────────────┼───────────────────┐
+           │                   │                   │
+           ▼                   ▼                   ▼
+┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+│ bikecheckTests  │  │bikecheckUITests │  │    App with     │
+│    Target       │  │    Target       │  │  UI_TESTING     │
+│                 │  │                 │  │    Flag         │
+│ ┌─────────────┐ │  │ ┌─────────────┐ │  │ ┌─────────────┐ │
+│ │MockPersist- │ │  │ │BikeCheckUI- │ │  │ │Auto Test    │ │
+│ │enceController│ │  │ TestCase    │ │  │ │Data Loading │ │
+│ │             │ │  │             │ │  │ │             │ │
+│ │ • In-memory │ │  │ • Launch    │ │  │ │ • Detects   │ │
+│ │   Core Data │ │  │   args      │ │  │ │   UI_TESTING│ │
+│ │ • Test data │ │  │ • Helper    │ │  │ │ • Calls     │ │
+│ │   creation  │ │  │   methods   │ │  │ │   insertTest│ │
+│ │             │ │  │             │ │  │ │   Data()    │ │
+│ └─────────────┘ │  │ └─────────────┘ │  │ └─────────────┘ │
+│                 │  │                 │  │                 │
+│ ┌─────────────┐ │  │ ┌─────────────┐ │  │                 │
+│ │DataService- │ │  │ │Actual UI    │ │  │                 │
+│ │Tests        │ │  │ │Tests        │ │  │                 │
+│ │             │ │  │             │ │  │                 │
+│ │ • Injects   │ │  │ • Inherit   │ │  │                 │
+│ │   mocks     │ │  │   from base │ │  │                 │
+│ │ • Tests     │ │  │ • Test user │ │  │                 │
+│ │   business  │ │  │   workflows │ │  │                 │
+│ │   logic     │ │  │             │ │  │                 │
+│ └─────────────┘ │  │ └─────────────┘ │  │                 │
+└─────────────────┘  └─────────────────┘  └─────────────────┘
+```
+
+## Test Flow
+
+**Unit Test Flow:**
+1. Test creates MockPersistenceController with in-memory Core Data
+2. Mock is injected into service under test
+3. Test data is created programmatically
+4. Business logic is tested in isolation
+5. No real app data is affected
+
+**UI Test Flow:**
+1. Test launches app with UI_TESTING launch argument
+2. App detects flag and automatically loads test data
+3. UI test runs against fully populated app
+4. Tests verify user workflows and navigation
+5. No manual setup or button interaction required
+
+This architecture ensures test isolation, reliability, and maintainability while providing comprehensive coverage of both business logic and user experience.
+
 ## Future Improvements
 
 1. Offline mode with manual activity entry

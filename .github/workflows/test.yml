@@ -18,10 +18,18 @@ jobs:
       - name: Set up Xcode
         run: xcode-select -p
       
-      - name: Run tests
+      - name: Run Unit tests
         run: |
           xcodebuild test \
             -project bikecheck.xcodeproj \
             -scheme bikecheck \
             -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest' \
             -only-testing:bikecheckTests
+      
+      - name: Run UI tests
+        run: |
+          xcodebuild test \
+            -project bikecheck.xcodeproj \
+            -scheme bikecheck \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=latest' \
+            -only-testing:bikecheckUITests

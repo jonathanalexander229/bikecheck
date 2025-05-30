@@ -17,6 +17,7 @@
 		A38B307E2DAC5B2000F82FA3 /* PersistenceControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38B307D2DAC5B2000F82FA3 /* PersistenceControllerTests.swift */; };
 		A38B307F2DAC5B2000F82FA3 /* DataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38B307B2DAC5B2000F82FA3 /* DataServiceTests.swift */; };
 		A38B30802DAC5B2000F82FA3 /* MockPersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38B307C2DAC5B2000F82FA3 /* MockPersistenceController.swift */; };
+		A3934B0D2DE93F4A003DF2D1 /* BikeCheckUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3934B0C2DE93F4A003DF2D1 /* BikeCheckUITestCase.swift */; };
 		A39ADD9E2B54A8CD0038AC55 /* ServiceInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39ADD9D2B54A8CD0038AC55 /* ServiceInterval.swift */; };
 		A3AB08402DA1EE1300935BB8 /* ServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB08362DA1EE1300935BB8 /* ServiceViewModel.swift */; };
 		A3AB08412DA1EE1300935BB8 /* BikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB083B2DA1EE1300935BB8 /* BikesView.swift */; };
@@ -73,6 +74,7 @@
 		A38B307B2DAC5B2000F82FA3 /* DataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServiceTests.swift; sourceTree = "<group>"; };
 		A38B307C2DAC5B2000F82FA3 /* MockPersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPersistenceController.swift; sourceTree = "<group>"; };
 		A38B307D2DAC5B2000F82FA3 /* PersistenceControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceControllerTests.swift; sourceTree = "<group>"; };
+		A3934B0C2DE93F4A003DF2D1 /* BikeCheckUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeCheckUITestCase.swift; sourceTree = "<group>"; };
 		A39ADD9D2B54A8CD0038AC55 /* ServiceInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInterval.swift; sourceTree = "<group>"; };
 		A3AB082C2DA1EE1300935BB8 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		A3AB082D2DA1EE1300935BB8 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		A365B01F2B44D34A00FF712E /* bikecheckUITests */ = {
 			isa = PBXGroup;
 			children = (
+				A3934B0C2DE93F4A003DF2D1 /* BikeCheckUITestCase.swift */,
 				A38B30792DAC5B0000F82FA3 /* bikecheckUITests.swift */,
 			);
 			path = bikecheckUITests;
@@ -414,6 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A38B307A2DAC5B0000F82FA3 /* bikecheckUITests.swift in Sources */,
+				A3934B0D2DE93F4A003DF2D1 /* BikeCheckUITestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
