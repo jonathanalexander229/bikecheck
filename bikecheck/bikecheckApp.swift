@@ -12,6 +12,7 @@ struct bikecheckApp: App {
     @StateObject var activitiesViewModel = ActivitiesViewModel()
     @StateObject var serviceViewModel = ServiceViewModel()
     @StateObject var loginViewModel = LoginViewModel()
+    @StateObject var onboardingViewModel = OnboardingViewModel()
     
     private let logger = Logger(subsystem: "com.bikecheck", category: "AppLifecycle")
     
@@ -84,18 +85,20 @@ struct bikecheckApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if stravaService.isSignedIn ?? false {
+                if stravaService.isSignedIn ?? false || onboardingViewModel.showTour {
                     HomeView()
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .environmentObject(stravaService)
                         .environmentObject(bikesViewModel)
                         .environmentObject(activitiesViewModel)
                         .environmentObject(serviceViewModel)
+                        .environmentObject(onboardingViewModel)
                 } else {
                     LoginView()
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .environmentObject(stravaService)
                         .environmentObject(loginViewModel)
+                        .environmentObject(onboardingViewModel)
                 }
             }
             .onAppear {
