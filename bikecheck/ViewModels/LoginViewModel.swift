@@ -19,4 +19,8 @@ class LoginViewModel: ObservableObject {
     func insertTestData() {
         stravaService.insertTestData()
     }
+    
+    func clearTestData() {
+        stravaService.clearTestData()
+    }
 }

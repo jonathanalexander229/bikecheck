@@ -7,10 +7,12 @@ struct HomeView: View {
     @EnvironmentObject var bikesViewModel: BikesViewModel
     @EnvironmentObject var activitiesViewModel: ActivitiesViewModel
     @EnvironmentObject var serviceViewModel: ServiceViewModel
+    @EnvironmentObject var onboardingViewModel: OnboardingViewModel
     @State var selectedTab = 0
     
     var body: some View {
-        TabView(selection: $selectedTab) {
+        ZStack {
+            TabView(selection: $selectedTab) {
             ServiceView()
                 .tabItem {
                     VStack {
@@ -37,9 +39,24 @@ struct HomeView: View {
                     }
                 }
                 .tag(2)
-        }.onAppear {
-            requestNotificationPermission()
-            fetchStravaData()
+            }
+            .onAppear {
+                // Only request notification permission if not in tour mode
+                if !onboardingViewModel.showTour {
+                    requestNotificationPermission()
+                }
+                fetchStravaData()
+            }
+            .onChange(of: onboardingViewModel.showTour) { showTour in
+                // Request notification permission when tour completes
+                if !showTour {
+                    requestNotificationPermission()
+                }
+            }
+            
+            if onboardingViewModel.showTour {
+                OnboardingTourOverlay(onboardingViewModel: onboardingViewModel, selectedTab: $selectedTab)
+            }
         }
     }
 

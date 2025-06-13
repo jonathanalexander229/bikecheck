@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		A30220892DBDD56900C3C195 /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30220882DBDD56900C3C195 /* BackgroundTaskManager.swift */; };
+		A31DDB482DFCDA4300E16E4B /* OnboardingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DDB472DFCDA4300E16E4B /* OnboardingOverlay.swift */; };
+		A31DDB4A2DFCDA5000E16E4B /* OnboardingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DDB492DFCDA5000E16E4B /* OnboardingStep.swift */; };
+		A31DDB4C2DFCDA7D00E16E4B /* OnboardingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DDB4B2DFCDA7D00E16E4B /* OnboardingUITests.swift */; };
+		A31DDB4E2DFCEB2600E16E4B /* TourStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DDB4D2DFCEB2600E16E4B /* TourStep.swift */; };
+		A31DDB502DFCEB3800E16E4B /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DDB4F2DFCEB3800E16E4B /* OnboardingViewModel.swift */; };
+		A31DDB522DFCEB4700E16E4B /* OnboardingTourOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DDB512DFCEB4700E16E4B /* OnboardingTourOverlay.swift */; };
 		A365B0012B44D34900FF712E /* bikecheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A365B0002B44D34900FF712E /* bikecheckApp.swift */; };
 		A365B0082B44D34A00FF712E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A365B0072B44D34A00FF712E /* Preview Assets.xcassets */; };
 		A365B00D2B44D34A00FF712E /* bikecheck.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A365B00B2B44D34A00FF712E /* bikecheck.xcdatamodeld */; };
@@ -61,6 +67,12 @@
 
 /* Begin PBXFileReference section */
 		A30220882DBDD56900C3C195 /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
+		A31DDB472DFCDA4300E16E4B /* OnboardingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingOverlay.swift; sourceTree = "<group>"; };
+		A31DDB492DFCDA5000E16E4B /* OnboardingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStep.swift; sourceTree = "<group>"; };
+		A31DDB4B2DFCDA7D00E16E4B /* OnboardingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUITests.swift; sourceTree = "<group>"; };
+		A31DDB4D2DFCEB2600E16E4B /* TourStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourStep.swift; sourceTree = "<group>"; };
+		A31DDB4F2DFCEB3800E16E4B /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		A31DDB512DFCEB4700E16E4B /* OnboardingTourOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTourOverlay.swift; sourceTree = "<group>"; };
 		A365AFFD2B44D34900FF712E /* bikecheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bikecheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A365B0002B44D34900FF712E /* bikecheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bikecheckApp.swift; sourceTree = "<group>"; };
 		A365B0042B44D34A00FF712E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -181,6 +193,7 @@
 		A365B01F2B44D34A00FF712E /* bikecheckUITests */ = {
 			isa = PBXGroup;
 			children = (
+				A31DDB4B2DFCDA7D00E16E4B /* OnboardingUITests.swift */,
 				A3934B0C2DE93F4A003DF2D1 /* BikeCheckUITestCase.swift */,
 				A38B30792DAC5B0000F82FA3 /* bikecheckUITests.swift */,
 			);
@@ -190,6 +203,8 @@
 		A365B02F2B44D36100FF712E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A31DDB4D2DFCEB2600E16E4B /* TourStep.swift */,
+				A31DDB492DFCDA5000E16E4B /* OnboardingStep.swift */,
 				A3E742932B46FDEE00C5191F /* Activity.swift */,
 				A3E742922B46FDEE00C5191F /* Athlete.swift */,
 				A3E742942B46FDEE00C5191F /* Bike.swift */,
@@ -214,6 +229,7 @@
 		A3AB08372DA1EE1300935BB8 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				A31DDB4F2DFCEB3800E16E4B /* OnboardingViewModel.swift */,
 				A3AB08312DA1EE1300935BB8 /* ActivitiesViewModel.swift */,
 				A3AB08322DA1EE1300935BB8 /* AddServiceIntervalViewModel.swift */,
 				A3AB08332DA1EE1300935BB8 /* BikeDetailViewModel.swift */,
@@ -227,6 +243,8 @@
 		A3AB083F2DA1EE1300935BB8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A31DDB512DFCEB4700E16E4B /* OnboardingTourOverlay.swift */,
+				A31DDB472DFCDA4300E16E4B /* OnboardingOverlay.swift */,
 				A3AB08382DA1EE1300935BB8 /* ActivitiesView.swift */,
 				A3AB08392DA1EE1300935BB8 /* AddServiceIntervalView.swift */,
 				A3AB083A2DA1EE1300935BB8 /* BikeDetailView.swift */,
@@ -377,18 +395,22 @@
 				A39ADD9E2B54A8CD0038AC55 /* ServiceInterval.swift in Sources */,
 				A3AB08402DA1EE1300935BB8 /* ServiceViewModel.swift in Sources */,
 				A3AB08412DA1EE1300935BB8 /* BikesView.swift in Sources */,
+				A31DDB522DFCEB4700E16E4B /* OnboardingTourOverlay.swift in Sources */,
 				A3AB08422DA1EE1300935BB8 /* LoginView.swift in Sources */,
 				A3AB08432DA1EE1300935BB8 /* PersistenceController.swift in Sources */,
 				A30220892DBDD56900C3C195 /* BackgroundTaskManager.swift in Sources */,
 				A3AB08442DA1EE1300935BB8 /* AddServiceIntervalViewModel.swift in Sources */,
 				A3AB08452DA1EE1300935BB8 /* NotificationService.swift in Sources */,
 				A3AB08462DA1EE1300935BB8 /* AddServiceIntervalView.swift in Sources */,
+				A31DDB482DFCDA4300E16E4B /* OnboardingOverlay.swift in Sources */,
 				A3AB08472DA1EE1300935BB8 /* LoginViewModel.swift in Sources */,
 				A3AB08482DA1EE1300935BB8 /* DataService.swift in Sources */,
 				A3AB08492DA1EE1300935BB8 /* BikeDetailView.swift in Sources */,
 				A3AB084A2DA1EE1300935BB8 /* ActivitiesViewModel.swift in Sources */,
 				A3AB084B2DA1EE1300935BB8 /* BikeDetailViewModel.swift in Sources */,
 				A3AB084C2DA1EE1300935BB8 /* HomeView.swift in Sources */,
+				A31DDB502DFCEB3800E16E4B /* OnboardingViewModel.swift in Sources */,
+				A31DDB4A2DFCDA5000E16E4B /* OnboardingStep.swift in Sources */,
 				A3AB084D2DA1EE1300935BB8 /* StravaService.swift in Sources */,
 				A3AB084E2DA1EE1300935BB8 /* ActivitiesView.swift in Sources */,
 				A3AB084F2DA1EE1300935BB8 /* ServiceView.swift in Sources */,
@@ -399,6 +421,7 @@
 				A3E742962B46FDEE00C5191F /* Activity.swift in Sources */,
 				A365B00D2B44D34A00FF712E /* bikecheck.xcdatamodeld in Sources */,
 				A3E742952B46FDEE00C5191F /* Athlete.swift in Sources */,
+				A31DDB4E2DFCEB2600E16E4B /* TourStep.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +439,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A31DDB4C2DFCDA7D00E16E4B /* OnboardingUITests.swift in Sources */,
 				A38B307A2DAC5B0000F82FA3 /* bikecheckUITests.swift in Sources */,
 				A3934B0D2DE93F4A003DF2D1 /* BikeCheckUITestCase.swift in Sources */,
 			);

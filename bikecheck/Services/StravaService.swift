@@ -451,7 +451,7 @@ class StravaService: ObservableObject {
         return self.tokenInfo?.expiresAt == 9999999999
     }
     
-    func insertTestData() {
+    func insertTestData(autoSignIn: Bool = true) {
         let viewContext = managedObjectContext
         
         // Create token and athlete
@@ -491,13 +491,58 @@ class StravaService: ObservableObject {
         do {
             try viewContext.save()
             DispatchQueue.main.async {
-                self.isSignedIn = true
+                if autoSignIn {
+                    self.isSignedIn = true
+                }
                 self.tokenInfo = newTokenInfo
                 self.athlete = newAthlete
                 self.bikes = bikes
             }
         } catch {
             print("Failed to save test data: \(error)")
+        }
+    }
+    
+    func clearTestData() {
+        let viewContext = managedObjectContext
+        
+        // Create fetch requests for all entities
+        let bikeRequest: NSFetchRequest<NSFetchRequestResult> = Bike.fetchRequest()
+        let activityRequest: NSFetchRequest<NSFetchRequestResult> = Activity.fetchRequest()
+        let serviceIntervalRequest: NSFetchRequest<NSFetchRequestResult> = ServiceInterval.fetchRequest()
+        let athleteRequest: NSFetchRequest<NSFetchRequestResult> = Athlete.fetchRequest()
+        let tokenRequest: NSFetchRequest<NSFetchRequestResult> = TokenInfo.fetchRequest()
+        
+        // Create batch delete requests
+        let bikesDelete = NSBatchDeleteRequest(fetchRequest: bikeRequest)
+        let activitiesDelete = NSBatchDeleteRequest(fetchRequest: activityRequest)
+        let serviceIntervalsDelete = NSBatchDeleteRequest(fetchRequest: serviceIntervalRequest)
+        let athleteDelete = NSBatchDeleteRequest(fetchRequest: athleteRequest)
+        let tokenDelete = NSBatchDeleteRequest(fetchRequest: tokenRequest)
+        
+        do {
+            // Execute batch deletes
+            try viewContext.execute(serviceIntervalsDelete)
+            try viewContext.execute(activitiesDelete)
+            try viewContext.execute(bikesDelete)
+            try viewContext.execute(athleteDelete)
+            try viewContext.execute(tokenDelete)
+            
+            // Save context
+            try viewContext.save()
+            
+            // Reset published properties
+            DispatchQueue.main.async {
+                self.isSignedIn = false
+                self.tokenInfo = nil
+                self.athlete = nil
+                self.bikes = nil
+                self.activities = nil
+                self.profileImage = nil
+            }
+            
+        } catch {
+            print("Failed to clear test data: \(error)")
         }
     }
     

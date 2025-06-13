@@ -8,9 +8,11 @@ class BikeCheckUITestCase: XCTestCase {
         continueAfterFailure = false
         app = XCUIApplication()
         app.launchArguments = ["UI_TESTING"]
+        app.launchEnvironment = ["DISABLE_ONBOARDING": "true"]
         app.launch()
         
         // Mock services automatically provide test data when UI_TESTING launch argument is present
+        // Onboarding is disabled via launch environment for existing tests
         // No need to tap any buttons
     }
     
