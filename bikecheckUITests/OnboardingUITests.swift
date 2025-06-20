@@ -8,8 +8,15 @@ final class OnboardingUITests: XCTestCase {
         continueAfterFailure = false
         app = XCUIApplication()
         app.launchArguments = ["UI_TESTING"]
-        // Don't disable onboarding for these tests - we want to test the onboarding flow
         app.launch()
+    }
+    
+    override func tearDown() {
+        // Reset app state after each test to ensure clean slate for next test
+        app.launchEnvironment = ["RESET_APP_STATE": "true"]
+        app.launch()
+        app.terminate()
+        super.tearDown()
     }
     
     func testOnboardingFlow() throws {
@@ -19,28 +26,14 @@ final class OnboardingUITests: XCTestCase {
         
         // Verify welcome step content
         XCTAssertTrue(app.staticTexts["Welcome to BikeCheck!"].exists)
-        XCTAssertTrue(app.staticTexts["Track your bike maintenance effortlessly"].exists)
+        XCTAssertTrue(app.staticTexts["Track your bike maintenance effortlessly. Ready to explore? Choose how you'd like to get started."].exists)
         
-        // Verify onboarding controls exist
+        // Verify choice buttons exist
         XCTAssertTrue(app.buttons["Skip Tour"].exists)
-        XCTAssertTrue(app.buttons["Next"].exists)
+        XCTAssertTrue(app.buttons["Take the Tour"].exists)
         
-        // Tap Next to proceed to second step
-        app.buttons["Next"].tap()
-        
-        // Verify sign-in step content
-        XCTAssertTrue(app.staticTexts["Connect Your Riding Data"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["Import your bikes and rides automatically"].exists)
-        
-        // Tap Next to proceed to third step
-        app.buttons["Next"].tap()
-        
-        // Verify test data step content
-        XCTAssertTrue(app.staticTexts["Try Demo Mode"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["Explore with sample data first"].exists)
-        
-        // Tap Next to complete onboarding
-        app.buttons["Next"].tap()
+        // Take the tour to complete onboarding and load test data
+        app.buttons["Take the Tour"].tap()
         
         // Verify onboarding overlay is dismissed and main content is visible
         XCTAssertFalse(app.staticTexts["Welcome to BikeCheck!"].waitForExistence(timeout: 2))
@@ -54,37 +47,35 @@ final class OnboardingUITests: XCTestCase {
         
         // Verify welcome step content
         XCTAssertTrue(app.staticTexts["Welcome to BikeCheck!"].exists)
+        XCTAssertTrue(app.staticTexts["Track your bike maintenance effortlessly. Ready to explore? Choose how you'd like to get started."].exists)
+        
+        // Verify choice buttons exist
+        XCTAssertTrue(app.buttons["Skip Tour"].exists)
+        XCTAssertTrue(app.buttons["Take the Tour"].exists)
         
         // Tap Skip Tour to bypass onboarding
         app.buttons["Skip Tour"].tap()
         
-        // Verify onboarding overlay is dismissed and main content is visible
+        // Verify onboarding overlay is dismissed and user remains on login screen
         XCTAssertFalse(app.staticTexts["Welcome to BikeCheck!"].waitForExistence(timeout: 2))
-        XCTAssertTrue(app.tabBars["Tab Bar"].waitForExistence(timeout: 5), "Main app should be visible after skipping onboarding")
+        XCTAssertTrue(app.buttons["Sign in with Strava"].waitForExistence(timeout: 3), "Should remain on login screen after skipping tour")
     }
     
-    func testOnboardingTapToAdvance() throws {
+    func testOnboardingButtonInteraction() throws {
         // Verify onboarding overlay appears
         let onboardingOverlay = app.otherElements.containing(.staticText, identifier: "Welcome to BikeCheck!")
         XCTAssertTrue(onboardingOverlay.element.waitForExistence(timeout: 5))
         
         // Verify welcome step content
         XCTAssertTrue(app.staticTexts["Welcome to BikeCheck!"].exists)
+        XCTAssertTrue(app.staticTexts["Track your bike maintenance effortlessly. Ready to explore? Choose how you'd like to get started."].exists)
         
-        // Tap anywhere on the overlay to advance (testing tap gesture)
-        onboardingOverlay.element.tap()
+        // Verify choice buttons exist
+        XCTAssertTrue(app.buttons["Skip Tour"].exists)
+        XCTAssertTrue(app.buttons["Take the Tour"].exists)
         
-        // Verify we advanced to sign-in step
-        XCTAssertTrue(app.staticTexts["Connect Your Riding Data"].waitForExistence(timeout: 3))
-        
-        // Tap again to advance
-        onboardingOverlay.element.tap()
-        
-        // Verify we advanced to test data step
-        XCTAssertTrue(app.staticTexts["Try Demo Mode"].waitForExistence(timeout: 3))
-        
-        // Tap again to complete onboarding
-        onboardingOverlay.element.tap()
+        // Choose "Take the Tour" to complete onboarding
+        app.buttons["Take the Tour"].tap()
         
         // Verify onboarding is dismissed
         XCTAssertFalse(app.staticTexts["Welcome to BikeCheck!"].waitForExistence(timeout: 2))
@@ -96,18 +87,23 @@ final class OnboardingUITests: XCTestCase {
         let onboardingOverlay = app.otherElements.containing(.staticText, identifier: "Welcome to BikeCheck!")
         XCTAssertTrue(onboardingOverlay.element.waitForExistence(timeout: 5))
         
+        // Verify welcome content exists
+        XCTAssertTrue(app.staticTexts["Welcome to BikeCheck!"].exists)
+        XCTAssertTrue(app.staticTexts["Track your bike maintenance effortlessly. Ready to explore? Choose how you'd like to get started."].exists)
+        
         // Skip onboarding to complete it
         app.buttons["Skip Tour"].tap()
         
-        // Verify main app is visible
-        XCTAssertTrue(app.tabBars["Tab Bar"].waitForExistence(timeout: 5))
+        // Verify user remains on login screen
+        XCTAssertTrue(app.buttons["Sign in with Strava"].waitForExistence(timeout: 3))
         
-        // Terminate and relaunch app to test persistence
+        // Terminate and relaunch app to test persistence (without reset flag)
         app.terminate()
+        app.launchEnvironment.removeValue(forKey: "RESET_APP_STATE")
         app.launch()
         
         // Verify onboarding does NOT appear on subsequent launches
         XCTAssertFalse(app.staticTexts["Welcome to BikeCheck!"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.tabBars["Tab Bar"].waitForExistence(timeout: 5), "Main app should appear directly on subsequent launches")
+        XCTAssertTrue(app.buttons["Sign in with Strava"].waitForExistence(timeout: 3), "Should show login screen directly on subsequent launches")
     }
 }
