@@ -10,8 +10,28 @@ class BikeCheckUITestCase: XCTestCase {
         app.launchArguments = ["UI_TESTING"]
         app.launch()
         
-        // Mock services automatically provide test data when UI_TESTING launch argument is present
-        // No need to tap any buttons
+        // Handle onboarding if it appears
+        let onboardingOverlay = app.otherElements.containing(.staticText, identifier: "Welcome to BikeCheck!")
+        if onboardingOverlay.element.waitForExistence(timeout: 3) {
+            // Skip onboarding to get to login screen
+            app.buttons["Skip Tour"].tap()
+        }
+        
+        // Use Insert Test Data button to load test data and sign in
+        if app.buttons["Insert Test Data"].waitForExistence(timeout: 3) {
+            app.buttons["Insert Test Data"].tap()
+            
+            // Wait for main app to be visible
+            _ = app.tabBars["Tab Bar"].waitForExistence(timeout: 10)
+        }
+    }
+    
+    override func tearDown() {
+        // Reset app state after each test to ensure clean slate for next test
+        app.launchEnvironment = ["RESET_APP_STATE": "true"]
+        app.launch()
+        app.terminate()
+        super.tearDown()
     }
     
     // Helper methods for common UI test operations

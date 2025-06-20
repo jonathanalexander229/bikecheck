@@ -12,6 +12,7 @@ struct bikecheckApp: App {
     @StateObject var activitiesViewModel = ActivitiesViewModel()
     @StateObject var serviceViewModel = ServiceViewModel()
     @StateObject var loginViewModel = LoginViewModel()
+    @StateObject var onboardingViewModel = OnboardingViewModel()
     
     private let logger = Logger(subsystem: "com.bikecheck", category: "AppLifecycle")
     
@@ -84,25 +85,28 @@ struct bikecheckApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if stravaService.isSignedIn ?? false {
+                if stravaService.isSignedIn ?? false || onboardingViewModel.showTour {
                     HomeView()
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .environmentObject(stravaService)
                         .environmentObject(bikesViewModel)
                         .environmentObject(activitiesViewModel)
                         .environmentObject(serviceViewModel)
+                        .environmentObject(onboardingViewModel)
                 } else {
                     LoginView()
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .environmentObject(stravaService)
                         .environmentObject(loginViewModel)
+                        .environmentObject(onboardingViewModel)
                 }
             }
             .onAppear {
-                // Check for UI testing mode and auto-load test data
-                if ProcessInfo.processInfo.arguments.contains("UI_TESTING") {
-                    stravaService.insertTestData()
+                // Reset app state for fresh install simulation in UI tests
+                if ProcessInfo.processInfo.environment["RESET_APP_STATE"] == "true" {
+                    persistenceController.resetAllData()
                 }
+                
             }
         }
 //        .backgroundTask(.appRefresh("checkServiceInterval")) { _ in
