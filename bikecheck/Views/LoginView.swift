@@ -57,10 +57,10 @@ struct LoginView: View {
             }
         }
         .onAppear {
-            // Check if onboarding should be disabled for testing
-            let disableOnboarding = ProcessInfo.processInfo.environment["DISABLE_ONBOARDING"] == "true"
+            // Clear any test data when showing login screen
+            onboardingViewModel.clearTestDataIfNeeded()
             
-            if !hasCompletedOnboarding && !disableOnboarding {
+            if !hasCompletedOnboarding {
                 onboardingViewModel.startOnboarding()
             }
         }

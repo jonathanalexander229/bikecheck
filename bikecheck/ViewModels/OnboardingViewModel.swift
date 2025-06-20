@@ -36,7 +36,8 @@ class OnboardingViewModel: ObservableObject {
         showTour = true
         currentTourStep = 0
         
-        // Sign in with the loaded test data when starting tour
+        // Load test data and sign in when starting tour
+        loadTestDataIfNeeded()
         DispatchQueue.main.async {
             self.stravaService.isSignedIn = true
         }
@@ -69,6 +70,14 @@ class OnboardingViewModel: ObservableObject {
         DispatchQueue.global(qos: .userInitiated).async {
             self.stravaService.clearTestData()
         }
+    }
+    
+    func clearTestDataIfNeeded() {
+        // Clear test data and ensure user is signed out when returning to login
+        DispatchQueue.main.async {
+            self.stravaService.isSignedIn = false
+        }
+        clearTestData()
     }
     
     func getCurrentTourStep() -> TourStep? {
