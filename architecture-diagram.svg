@@ -1,0 +1,264 @@
+<svg width="1600" height="950" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .model-box { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; }
+      .view-box { fill: #e8f5e8; stroke: #388e3c; stroke-width: 2; }
+      .viewmodel-box { fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 2; }
+      .service-box { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .legend-box { fill: #f5f5f5; stroke: #999; stroke-width: 1; }
+      .class-title { font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; text-anchor: middle; }
+      .class-detail { font-family: Arial, sans-serif; font-size: 10px; text-anchor: start; }
+      .section-title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; text-anchor: start; }
+      .relationship-line { stroke: #f57c00; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .cardinality { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; fill: #f57c00; }
+    </style>
+    
+    <!-- Arrow marker for relationships -->
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#f57c00" />
+      </marker>
+    </defs>
+  </defs>
+  
+  <!-- Title -->
+  <text x="700" y="30" class="section-title" font-size="20">BikeCheck iOS App - MVVM Architecture and Core Data</text>
+  
+  <!-- Core Data Models Section -->
+  <text x="50" y="80" class="section-title">Core Data Models and Relationships</text>
+  
+  <!-- Athlete Model -->
+  <rect x="50" y="100" width="240" height="140" class="model-box"/>
+  <text x="170" y="120" class="class-title">Athlete</text>
+  <text x="55" y="140" class="class-detail">id: Int32</text>
+  <text x="55" y="155" class="class-detail">firstname: String?</text>
+  <text x="55" y="170" class="class-detail">profile: String?</text>
+  <text x="55" y="185" class="class-detail">created: Date</text>
+  <text x="55" y="210" class="class-detail">bikes: Set[Bike]</text>
+  <text x="55" y="225" class="class-detail">tokenInfo: TokenInfo?</text>
+  
+  <!-- Bike Model -->
+  <rect x="320" y="100" width="260" height="140" class="model-box"/>
+  <text x="450" y="120" class="class-title">Bike</text>
+  <text x="325" y="140" class="class-detail">id: String</text>
+  <text x="325" y="155" class="class-detail">name: String?</text>
+  <text x="325" y="170" class="class-detail">distance: Double</text>
+  <text x="325" y="185" class="class-detail">created: Date</text>
+  <text x="325" y="210" class="class-detail">athlete: Athlete?</text>
+  <text x="325" y="225" class="class-detail">serviceIntervals: Set[ServiceInterval]</text>
+  
+  <!-- Activity Model -->
+  <rect x="610" y="100" width="220" height="160" class="model-box"/>
+  <text x="720" y="120" class="class-title">Activity</text>
+  <text x="615" y="140" class="class-detail">id: Int32</text>
+  <text x="615" y="155" class="class-detail">gearId: String?</text>
+  <text x="615" y="170" class="class-detail">name: String?</text>
+  <text x="615" y="185" class="class-detail">type: String?</text>
+  <text x="615" y="200" class="class-detail">movingTime: Double</text>
+  <text x="615" y="215" class="class-detail">distance: Double</text>
+  <text x="615" y="230" class="class-detail">averageSpeed: Double</text>
+  <text x="615" y="245" class="class-detail">startDate: Date?</text>
+  
+  <!-- ServiceInterval Model -->
+  <rect x="860" y="100" width="220" height="140" class="model-box"/>
+  <text x="970" y="120" class="class-title">ServiceInterval</text>
+  <text x="865" y="140" class="class-detail">id: UUID</text>
+  <text x="865" y="155" class="class-detail">part: String?</text>
+  <text x="865" y="170" class="class-detail">startTime: Date?</text>
+  <text x="865" y="185" class="class-detail">intervalTime: Double</text>
+  <text x="865" y="200" class="class-detail">notify: Bool</text>
+  <text x="865" y="225" class="class-detail">bike: Bike?</text>
+  
+  <!-- TokenInfo Model -->
+  <rect x="1110" y="100" width="220" height="140" class="model-box"/>
+  <text x="1220" y="120" class="class-title">TokenInfo</text>
+  <text x="1115" y="140" class="class-detail">accessToken: String?</text>
+  <text x="1115" y="155" class="class-detail">refreshToken: String?</text>
+  <text x="1115" y="170" class="class-detail">expiresAt: Date?</text>
+  <text x="1115" y="185" class="class-detail">created: Date</text>
+  <text x="1115" y="210" class="class-detail">athlete: Athlete?</text>
+  
+  
+  <!-- MVVM Section -->
+  <text x="50" y="320" class="section-title">MVVM Architecture</text>
+  
+  <!-- Views -->
+  <text x="50" y="360" class="section-title" font-size="14">Views (SwiftUI)</text>
+  
+  <rect x="50" y="380" width="200" height="120" class="view-box"/>
+  <text x="150" y="400" class="class-title">HomeView</text>
+  <line x1="50" y1="405" x2="250" y2="405" stroke="#333"/>
+  <text x="55" y="420" class="class-detail">@EnvironmentObject stravaService</text>
+  <text x="55" y="435" class="class-detail">@EnvironmentObject bikesViewModel</text>
+  <text x="55" y="450" class="class-detail">@EnvironmentObject serviceViewModel</text>
+  <text x="55" y="465" class="class-detail">@EnvironmentObject onboardingViewModel</text>
+  <text x="55" y="480" class="class-detail">@State selectedTab: Int</text>
+  <text x="55" y="495" class="class-detail">TabView with service/bikes/activities</text>
+  
+  <rect x="270" y="380" width="200" height="120" class="view-box"/>
+  <text x="370" y="400" class="class-title">BikesView</text>
+  <line x1="270" y1="405" x2="470" y2="405" stroke="#333"/>
+  <text x="275" y="420" class="class-detail">@EnvironmentObject bikesViewModel</text>
+  <text x="275" y="435" class="class-detail">@EnvironmentObject stravaService</text>
+  <text x="275" y="450" class="class-detail">NavigationView with bike list</text>
+  <text x="275" y="465" class="class-detail">Navigation to BikeDetailView</text>
+  <text x="275" y="480" class="class-detail">Pull to refresh functionality</text>
+  
+  <rect x="490" y="380" width="200" height="120" class="view-box"/>
+  <text x="590" y="400" class="class-title">ServiceView</text>
+  <line x1="490" y1="405" x2="690" y2="405" stroke="#333"/>
+  <text x="495" y="420" class="class-detail">@EnvironmentObject serviceViewModel</text>
+  <text x="495" y="435" class="class-detail">List of service intervals</text>
+  <text x="495" y="450" class="class-detail">Sort by urgency</text>
+  <text x="495" y="465" class="class-detail">Add new interval button</text>
+  <text x="495" y="480" class="class-detail">Navigation to detail views</text>
+  
+  <rect x="710" y="380" width="200" height="120" class="view-box"/>
+  <text x="810" y="400" class="class-title">ActivitiesView</text>
+  <line x1="710" y1="405" x2="910" y2="405" stroke="#333"/>
+  <text x="715" y="420" class="class-detail">@EnvironmentObject activitiesViewModel</text>
+  <text x="715" y="435" class="class-detail">List of recent activities</text>
+  <text x="715" y="450" class="class-detail">Pull to refresh</text>
+  <text x="715" y="465" class="class-detail">Format duration display</text>
+  <text x="715" y="480" class="class-detail">Show bike association</text>
+  
+  <rect x="930" y="380" width="200" height="120" class="view-box"/>
+  <text x="1030" y="400" class="class-title">LoginView</text>
+  <line x1="930" y1="405" x2="1130" y2="405" stroke="#333"/>
+  <text x="935" y="420" class="class-detail">@EnvironmentObject loginViewModel</text>
+  <text x="935" y="435" class="class-detail">@EnvironmentObject stravaService</text>
+  <text x="935" y="450" class="class-detail">Strava OAuth integration</text>
+  <text x="935" y="465" class="class-detail">Sign in/out functionality</text>
+  <text x="935" y="480" class="class-detail">Loading state display</text>
+  
+  <!-- ViewModels -->
+  <text x="50" y="540" class="section-title" font-size="14">ViewModels (ObservableObject)</text>
+  
+  <rect x="50" y="560" width="240" height="140" class="viewmodel-box"/>
+  <text x="170" y="580" class="class-title">BikesViewModel</text>
+  <line x1="50" y1="585" x2="290" y2="585" stroke="#333"/>
+  <text x="55" y="600" class="class-detail">@Published bikes: [Bike] = []</text>
+  <text x="55" y="615" class="class-detail">@Published isLoading: Bool = false</text>
+  <text x="55" y="630" class="class-detail">@Published error: String?</text>
+  <line x1="50" y1="640" x2="290" y2="640" stroke="#333"/>
+  <text x="55" y="655" class="class-detail">loadBikes()</text>
+  <text x="55" y="670" class="class-detail">deleteBike(bike: Bike)</text>
+  <text x="55" y="685" class="class-detail">refreshBikes()</text>
+  
+  <rect x="310" y="560" width="280" height="140" class="viewmodel-box"/>
+  <text x="450" y="580" class="class-title">ServiceViewModel</text>
+  <line x1="310" y1="585" x2="590" y2="585" stroke="#333"/>
+  <text x="315" y="600" class="class-detail">@Published serviceIntervals: [ServiceInterval]</text>
+  <text x="315" y="615" class="class-detail">@Published isLoading: Bool = false</text>
+  <text x="315" y="630" class="class-detail">@Published error: String?</text>
+  <line x1="310" y1="640" x2="590" y2="640" stroke="#333"/>
+  <text x="315" y="655" class="class-detail">loadServiceIntervals()</text>
+  <text x="315" y="670" class="class-detail">resetInterval(interval: ServiceInterval)</text>
+  <text x="315" y="685" class="class-detail">createDefaultIntervals(for bike: Bike)</text>
+  
+  <rect x="610" y="560" width="280" height="140" class="viewmodel-box"/>
+  <text x="750" y="580" class="class-title">ActivitiesViewModel</text>
+  <line x1="610" y1="585" x2="890" y2="585" stroke="#333"/>
+  <text x="615" y="600" class="class-detail">@Published activities: [Activity] = []</text>
+  <text x="615" y="615" class="class-detail">@Published isLoading: Bool = false</text>
+  <text x="615" y="630" class="class-detail">@Published error: String?</text>
+  <line x1="610" y1="640" x2="890" y2="640" stroke="#333"/>
+  <text x="615" y="655" class="class-detail">loadActivities()</text>
+  <text x="615" y="670" class="class-detail">formatDuration(seconds: Double) -> String</text>
+  <text x="615" y="685" class="class-detail">refreshActivities()</text>
+  
+  <rect x="910" y="560" width="240" height="140" class="viewmodel-box"/>
+  <text x="1030" y="580" class="class-title">LoginViewModel</text>
+  <line x1="910" y1="585" x2="1150" y2="585" stroke="#333"/>
+  <text x="915" y="600" class="class-detail">@Published isLoading: Bool = false</text>
+  <text x="915" y="615" class="class-detail">@Published errorMessage: String?</text>
+  <line x1="910" y1="630" x2="1150" y2="630" stroke="#333"/>
+  <text x="915" y="645" class="class-detail">signInWithStrava()</text>
+  <text x="915" y="660" class="class-detail">signOut()</text>
+  <text x="915" y="675" class="class-detail">handleAuthResult(result: Result)</text>
+  <text x="915" y="690" class="class-detail">clearError()</text>
+  
+  <!-- Services -->
+  <text x="50" y="740" class="section-title" font-size="14">Services (Singletons)</text>
+  
+  <rect x="50" y="760" width="260" height="120" class="service-box"/>
+  <text x="180" y="780" class="class-title">StravaService</text>
+  <line x1="50" y1="785" x2="310" y2="785" stroke="#333"/>
+  <text x="55" y="800" class="class-detail">@Published isAuthenticated: Bool = false</text>
+  <text x="55" y="815" class="class-detail">@Published athlete: Athlete?</text>
+  <line x1="50" y1="825" x2="310" y2="825" stroke="#333"/>
+  <text x="55" y="840" class="class-detail">authenticate() async</text>
+  <text x="55" y="855" class="class-detail">fetchActivities() async</text>
+  <text x="55" y="870" class="class-detail">fetchBikes() async</text>
+  
+  <rect x="330" y="760" width="280" height="120" class="service-box"/>
+  <text x="470" y="780" class="class-title">DataService</text>
+  <line x1="330" y1="785" x2="610" y2="785" stroke="#333"/>
+  <text x="335" y="800" class="class-detail">static let shared = DataService()</text>
+  <line x1="330" y1="810" x2="610" y2="810" stroke="#333"/>
+  <text x="335" y="825" class="class-detail">fetchBikes() -> [Bike]</text>
+  <text x="335" y="840" class="class-detail">fetchActivities() -> [Activity]</text>
+  <text x="335" y="855" class="class-detail">fetchServiceIntervals() -> [ServiceInterval]</text>
+  <text x="335" y="870" class="class-detail">saveContext()</text>
+  
+  <rect x="630" y="760" width="280" height="120" class="service-box"/>
+  <text x="770" y="780" class="class-title">NotificationService</text>
+  <line x1="630" y1="785" x2="910" y2="785" stroke="#333"/>
+  <text x="635" y="800" class="class-detail">static let shared = NotificationService()</text>
+  <line x1="630" y1="810" x2="910" y2="810" stroke="#333"/>
+  <text x="635" y="825" class="class-detail">requestPermission() async</text>
+  <text x="635" y="840" class="class-detail">scheduleNotification(for interval:)</text>
+  <text x="635" y="855" class="class-detail">checkServiceIntervals()</text>
+  <text x="635" y="870" class="class-detail">cancelNotification(for interval:)</text>
+  
+  <rect x="930" y="760" width="260" height="120" class="service-box"/>
+  <text x="1060" y="780" class="class-title">PersistenceController</text>
+  <line x1="930" y1="785" x2="1190" y2="785" stroke="#333"/>
+  <text x="935" y="800" class="class-detail">static let shared = PersistenceController()</text>
+  <text x="935" y="815" class="class-detail">container: NSPersistentContainer</text>
+  <line x1="930" y1="825" x2="1190" y2="825" stroke="#333"/>
+  <text x="935" y="840" class="class-detail">saveContext()</text>
+  <text x="935" y="855" class="class-detail">resetAllData()</text>
+  <text x="935" y="870" class="class-detail">insertTestData()</text>
+  
+  <!-- Legend and Info Panels -->
+  <text x="1370" y="80" class="section-title" font-size="14">Legend</text>
+  
+  <rect x="1370" y="100" width="20" height="15" class="model-box"/>
+  <text x="1400" y="112" class="class-detail">Core Data Models</text>
+  
+  <rect x="1370" y="125" width="20" height="15" class="view-box"/>
+  <text x="1400" y="137" class="class-detail">Views (SwiftUI)</text>
+  
+  <rect x="1370" y="150" width="20" height="15" class="viewmodel-box"/>
+  <text x="1400" y="162" class="class-detail">ViewModels</text>
+  
+  <rect x="1370" y="175" width="20" height="15" class="service-box"/>
+  <text x="1400" y="187" class="class-detail">Services</text>
+  
+  
+  <!-- MVVM Info Panel -->
+  <rect x="1370" y="270" width="200" height="160" class="legend-box"/>
+  <text x="1470" y="290" class="class-title">MVVM Pattern</text>
+  <line x1="1370" y1="295" x2="1570" y2="295" stroke="#333"/>
+  <text x="1375" y="310" class="class-detail">Model: Core Data entities</text>
+  <text x="1375" y="325" class="class-detail">View: SwiftUI declarative UI</text>
+  <text x="1375" y="340" class="class-detail">ViewModel: ObservableObject</text>
+  <text x="1375" y="355" class="class-detail">• @Published properties</text>
+  <text x="1375" y="370" class="class-detail">• Business logic</text>
+  <text x="1375" y="385" class="class-detail">• Data coordination</text>
+  <text x="1375" y="400" class="class-detail">• Reactive UI updates</text>
+  <text x="1375" y="415" class="class-detail">Services: Singleton patterns</text>
+  
+  <!-- Data Flow Panel -->
+  <rect x="1370" y="450" width="200" height="140" class="legend-box"/>
+  <text x="1470" y="470" class="class-title">Data Flow</text>
+  <line x1="1370" y1="475" x2="1570" y2="475" stroke="#333"/>
+  <text x="1375" y="490" class="class-detail">1. User interaction → View</text>
+  <text x="1375" y="505" class="class-detail">2. View → ViewModel method</text>
+  <text x="1375" y="520" class="class-detail">3. ViewModel → Service call</text>
+  <text x="1375" y="535" class="class-detail">4. Service → Core Data</text>
+  <text x="1375" y="550" class="class-detail">5. @Published triggers UI</text>
+  <text x="1375" y="565" class="class-detail">6. SwiftUI auto-updates</text>
+  <text x="1375" y="580" class="class-detail">Reactive, unidirectional</text>
+</svg>

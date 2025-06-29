@@ -211,40 +211,14 @@ This ensures that data doesn't need to be reloaded when navigating between tabs 
 
 ## Architecture Diagram
 
-```
-┌─────────────────────────────────────────────────┐
-│                     Views                        │
-│  ┌───────────┐ ┌───────────┐ ┌───────────┐      │
-│  │ HomeView  │ │ BikesView │ │ServiceView│ ...  │
-│  └───────────┘ └───────────┘ └───────────┘      │
-└───────────────────┬─────────────────────────────┘
-                    │
-┌───────────────────▼─────────────────────────────┐
-│                 ViewModels                       │
-│  ┌───────────┐ ┌───────────┐ ┌───────────┐      │
-│  │BikesVM    │ │ServiceVM  │ │ActivitiesVM ...  │
-│  └───────────┘ └───────────┘ └───────────┘      │
-└───────────────────┬─────────────────────────────┘
-                    │
-┌───────────────────▼─────────────────────────────┐
-│                  Services                        │
-│  ┌───────────┐ ┌───────────┐ ┌───────────┐      │
-│  │StravaService│DataService│ │NotificationService│
-│  └───────────┘ └───────────┘ └───────────┘      │
-└───────────────────┬─────────────────────────────┘
-                    │
-┌───────────────────▼─────────────────────────────┐
-│                   Models                         │
-│  ┌───────────┐ ┌───────────┐ ┌───────────┐      │
-│  │   Bike    │ │  Activity │ │ServiceInterval    │
-│  └───────────┘ └───────────┘ └───────────┘      │
-└───────────────────┬─────────────────────────────┘
-                    │
-┌───────────────────▼─────────────────────────────┐
-│              Persistence Layer                   │
-│            (Core Data, UserDefaults)             │
-└─────────────────────────────────────────────────┘
-```
+For a detailed visual representation of the app's architecture, see [architecture-diagram.svg](./architecture-diagram.svg).
+
+The diagram shows the complete class structure including:
+- Core Services (Singletons): PersistenceController, DataService, StravaService, NotificationService
+- ViewModels: BikesViewModel, ActivitiesViewModel, ServiceViewModel, LoginViewModel, OnboardingViewModel
+- Views: HomeView, BikesView, ServiceView, ActivitiesView, LoginView
+- Core Data Models: Athlete, Bike, Activity, ServiceInterval, TokenInfo
+- Main App entry point and their relationships
 
 ## Key Features
 
@@ -252,6 +226,8 @@ This ensures that data doesn't need to be reloaded when navigating between tabs 
 2. **Service Tracking**: Tracks maintenance schedules based on actual ride time
 3. **Notifications**: Sends reminders when service is due
 4. **Component-specific Tracking**: Manages maintenance for different bike components separately
+5. **Onboarding Experience**: Single-step onboarding flow with interactive test data tour
+6. **Background Processing**: Automatic activity syncing and service interval checking
 
 # Testing Framework
 
@@ -344,3 +320,4 @@ This architecture ensures test isolation, reliability, and maintainability while
 3. More detailed component tracking
 4. Multiple service notification thresholds
 5. Additional fitness platform integrations
+6. Service interval templates and recommendations
