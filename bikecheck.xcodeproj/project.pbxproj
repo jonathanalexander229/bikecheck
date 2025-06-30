@@ -108,6 +108,7 @@
 		A3E742922B46FDEE00C5191F /* Athlete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Athlete.swift; sourceTree = "<group>"; usesTabs = 0; };
 		A3E742932B46FDEE00C5191F /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		A3E742942B46FDEE00C5191F /* Bike.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
+		A3F2D2872E1318A20079E9FA /* bikecheck.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = bikecheck.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +140,7 @@
 		A365AFF42B44D34900FF712E = {
 			isa = PBXGroup;
 			children = (
+				A3F2D2872E1318A20079E9FA /* bikecheck.xctestplan */,
 				A365AFFF2B44D34900FF712E /* bikecheck */,
 				A365B0152B44D34A00FF712E /* bikecheckTests */,
 				A365B01F2B44D34A00FF712E /* bikecheckUITests */,
