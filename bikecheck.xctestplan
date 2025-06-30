@@ -1,0 +1,36 @@
+{
+  "configurations" : [
+    {
+      "id" : "BB6ACD09-38BC-4DE5-83A5-9C59746551A7",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:bikecheck.xcodeproj",
+      "identifier" : "A365AFFC2B44D34900FF712E",
+      "name" : "bikecheck"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:bikecheck.xcodeproj",
+        "identifier" : "A365B0112B44D34A00FF712E",
+        "name" : "bikecheckTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:bikecheck.xcodeproj",
+        "identifier" : "A365B01B2B44D34A00FF712E",
+        "name" : "bikecheckUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
